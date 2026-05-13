@@ -129,8 +129,14 @@ footer {
     font-weight: bold;
     cursor: pointer;
     margin-top: 15px;
-    align-self: center;
+    margin-left: 110px;
+    align-content: center;
     font-family: Arial, sans-serif;
+}
+
+#btn-entrar {
+    align-content: center;
+    
 }
 
 .btn-entrar:hover {
