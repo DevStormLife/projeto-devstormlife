@@ -64,6 +64,7 @@ header {
     border: 1px solid rgb(241, 136, 0);
     padding: 1px;
     text-align: left;
+    padding: 8px 12px;
     
 }
 
@@ -75,7 +76,7 @@ header {
 
 }
 
-.tabela tr {
+.tabela tr:hover {
     background-color:white ;
 }
 
@@ -102,3 +103,12 @@ footer {
     width: 100%;
     bottom: 0;
 }
+
+@media print {
+    body { background-color: white; }
+    header, footer, .filtros { display: none; }
+    .container { padding: 0; }
+    .card { width: 100%; border: none; box-shadow: none; }
+    .card-header { background-color: rgb(241, 136, 0) !important; }
+}
+
