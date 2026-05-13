@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: rgb(18, 55, 92);
+}
+
+header {
+    background-color: rgb(236, 242, 242);
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.titulo {
+    margin: 0;
+    font-size: 16px;
+}
+
+.sub {
+    margin: 0;
+    font-size: 12px;
+}
+
+.cadastro {
+    margin-left: auto;
+    font-size: 14px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.card {
+    width: 800px;
+    background-color: rgb(238, 242, 245);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: rgb(241, 136, 0);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-weight: bold;
+    
+}
+
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+    
+}
+
+ .tabela td{
+    border: 1px solid rgb(241, 136, 0);
+    padding: 1px;
+    text-align: left;
+    
+}
+
+.tabela th {
+    background-color:rgb(209, 118, 0);
+    color: white;
+    padding: 5px 0 rgb(209, 118, 0);
+    text-align: center;
+
+}
+
+.tabela tr {
+    background-color:white ;
+}
+
+.descricao {
+    padding: 20px;
+}
+
+.descricao p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.linhas {
+    border-bottom: 2px solid rgb(241, 136, 0) ;
+    margin: 25px 0;
+}
+
+footer {
+    background-color: rgb(50, 50, 50);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
