@@ -1,0 +1,214 @@
+header {
+    background: #ECF2F2;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    padding: 5px 20px;  
+    height: 60px;        
+}
+
+.logo {
+    height: 45px;
+    width: 45px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.cima{
+   background: #0f3459;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 50px 20px;
+    color: white;
+}
+
+body{
+    background: #ecf2f2;
+    margin: 0;
+    padding: 0;
+}
+
+footer {
+    background: #323232;
+    /* position: fixed; */
+    bottom: 0;
+    left: 0;         
+    width: 100%;     
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;  
+    justify-content: center; 
+    align-items: center;     
+    gap: 10px;
+    padding: 5px 0;
+    font-size: 14px;
+}
+
+.titulo {
+    font-family: Arial, sans-serif;
+    font-size: 1.2rem;
+    line-height: 1;
+    flex-grow: 1;
+    margin: 0;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.sub {
+    font-weight: 500;
+    font-size: 0.8rem;
+    margin: 0;    
+}
+
+.a{
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    color: black;
+    font-weight: bold;
+    margin-left: 25px;
+}
+
+.solucao, .solucaop{
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.solucao{
+    padding-top: 25px;
+}
+
+.solucaop{
+    font-size: 20px;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  margin: 30px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 50px;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin: 10px 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.nr , p{
+    font-family: Arial, sans-serif;
+}
+
+.meio{
+    background: #FBFBFB;
+    margin-top: -19px;
+}
+
+.texto-container {
+    max-width: 50%;
+}
+
+.conteudo-baixo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
+    padding: 20px 80px;
+}
+
+.lista-componentes {
+    display: flex;
+    flex-direction: column;
+}
+
+.baixo {
+    display: flex;    
+    align-items: center; 
+    justify-content: center;
+    gap: 50px;             
+    padding: 40px;
+    background: #ECF2F2;
+}
+
+.container-iot {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.iot {
+    margin: 15px;
+    font-family: Arial, sans-serif;
+}
+
+.no {
+    margin: 11px ;         
+    font-family: Arial, sans-serif;
+    
+}
+
+.caminho {
+    max-width: 400px;
+    height: auto;
+
+}
+
+.cima {
+    background: #0f3459;
+    display: flex;        
+    align-items: center;      
+    justify-content: space-between; 
+    padding: 50px 80px;        
+}
+
+.texto-hero {
+    display: flex;
+    flex-direction: column; 
+}
+
+.t1 {
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 35px;
+    margin: 0;          
+    padding: 0;
+}
+
+.p1 {
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    letter-spacing: 1.5px;
+    margin-top: 15px;
+}
+
+.imgSubesta {
+    max-width: 400px; 
+    height: auto;
+}
