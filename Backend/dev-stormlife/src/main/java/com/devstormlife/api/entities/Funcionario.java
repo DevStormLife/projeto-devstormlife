@@ -38,7 +38,7 @@ public class Funcionario {
 
 	@SenhaValida
 	@NotBlank(message = "A Senha é obrigatóra")
-	@Size(min = 6, message = "A senha deve ter no mínimo 6 caracteres")
+	@Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres")
 	@Column(nullable = false)
 	private String senha;
 
