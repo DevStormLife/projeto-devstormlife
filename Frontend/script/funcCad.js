@@ -1,12 +1,16 @@
-// Aguarda o HTML ser totalmente carregado e processado antes de executar o script
+
+const API_URL = "http://localhost:8080/usuarios/cadastro";
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // Seleciona o corpo da tabela onde os dados estão localizados
     const tabela = document.querySelector('tbody');
 
     /**
-     * 1. DELEGAÇÃO DE EVENTOS
-     * Em vez de criar um evento para cada botão em cada linha, ouvimos os cliques 
-     * na tabela inteira e identificamos o que foi clicado através do 'e.target'.
+      DELEGAÇÃO DE EVENTOS
+      Em vez de criar um evento para cada botão em cada linha, ouvimos os cliques 
+      na tabela inteira e identificamos o que foi clicado através do 'e.target'.
      */
     tabela.addEventListener('click', (e) => {
         const elementoClicado = e.target;
