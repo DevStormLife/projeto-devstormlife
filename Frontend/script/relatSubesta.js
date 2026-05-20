@@ -1,37 +1,60 @@
-const logsAcesso = [
-    { nome: "Pedro Cunha", rf: "99281", data: "13/05/2026 08:30", cod: "Setor-1" },
-    { nome: "Victor Gabriel", rf: "88273", data: "13/05/2026 09:15", cod: "Setor-2" },
-    { nome: "Guilherme Melos", rf: "77122", data: "13/05/2026 10:05", cod: "Setor-6" },
-    { nome: "Miguel Lopes", rf: "66100", data: "13/05/2026 11:40", cod: "Setor-1" },
-    { nome: "Miguel Narvais", rf: "44500", data: "13/05/2026 12:20", cod: "Setor-1" },
-    { nome: "Pedro Santos", rf: "77861", data: "13/05/2026 13:10", cod: "Setor-3" }
-];
+const API_URL = "http://localhost:8080/subestacoes";
 
-
-function atualizarTabela() {
+async function carregarRelatorioSubestacoes() {
     const corpoTabela = document.querySelector("#tabelaRelatorio tbody");
+    
+    corpoTabela.innerHTML = `<tr><td colspan="4" style="text-align: center;">Carregando dados...</td></tr>`;
 
-    corpoTabela.innerHTML = "";
+    try {
+        const resposta = await fetch(API_URL);
+        
+        if (!resposta.ok) {
+            throw new Error(`Erro na requisição: ${resposta.status}`);
+        }
 
-    logsAcesso.forEach(item => {
-        const tr = document.createElement("tr");
+        const subestacoes = await resposta.json();
+        
+    
+        corpoTabela.innerHTML = "";
 
-        tr.innerHTML = `
-            <td>${item.nome}</td>
-            <td>${item.rf}</td>
-            <td>${item.data}</td>
-            <td>${item.cod}</td>
-        `;
+        if (subestacoes.length === 0) {
+            corpoTabela.innerHTML = `<tr><td colspan="4" style="text-align: center;">Nenhuma subestação encontrada.</td></tr>`;
+            return;
+        }
 
-        corpoTabela.appendChild(tr);
-    });
+        subestacoes.forEach(subestacao => {
+            const tr = document.createElement("tr");
+
+            
+            tr.innerHTML = `
+                <td>${subestacao.nome || "Sem Nome"}</td>
+                <td>${subestacao.localizacao || "Não informada"}</td>
+                <td>ID: ${subestacao.id}</td>
+                <td>${subestacao.codigoSubestacao || "Sem Código"}</td>
+            `;
+
+            corpoTabela.appendChild(tr);
+        });
+
+    } catch (erro) {
+        console.error("Erro ao buscar dados do servidor:", erro);
+        corpoTabela.innerHTML = `
+            <tr>
+                <td colspan="4" style="text-align: center; color: red; font-weight: bold;">
+                    Erro ao carregar o relatório.
+                </td>
+            </tr>`;
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    atualizarTabela();
+   
+    carregarRelatorioSubestacoes();
 
     const btnHome = document.getElementById('btnHome');
     if (btnHome) {
-        btnHome.onclick = () => window.location.href = "home.html";
+        btnHome.onclick = () => {
+            window.location.href = "home.html";
+        };
     }
 });
