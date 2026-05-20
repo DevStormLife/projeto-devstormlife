@@ -7,38 +7,34 @@ body {
 
 header {
     background: #ECF2F2;
+    margin: 0;
     display: flex;
     align-items: center;
     padding: 5px 20px;
     height: 60px;
 }
 
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.logo-img {
-    height: 50px;
-    width: auto;
-    object-fit: contain;
+.logo {
+    height: 45px;
+    width: 45px;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
 .titulo {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 700;
+    font-family: Arial, sans-serif;
+    font-size: 1.2rem;
     line-height: 1;
+    flex-grow: 1;
     margin: 0;
+    margin-right: 10px;
     cursor: pointer;
-    font-size: 20px;
-    color: #333;
 }
 
 .sub {
     font-weight: 500;
     font-size: 0.8rem;
-    display: block;
+    margin: 0;
 }
 
 footer {
@@ -51,8 +47,6 @@ footer {
     justify-content: center;
     align-items: center;
     padding: 5px 0;
-    font-size: 1rem;
-    margin: 0;
 }
 
 .login-area {
