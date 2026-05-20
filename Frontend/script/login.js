@@ -2,15 +2,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.querySelector('.login-form');
 
     loginForm.addEventListener('submit', (event) => {
-        // Impede que a página recarregue ao clicar no botão
+        // impede que a página recarregue ao clicar no botão
         event.preventDefault();
 
-        // Captura os valores dos inputs
+        // captura os valores dos inputs
         const inputs = document.querySelectorAll('.login-input');
         const loginValue = inputs[0].value.trim();
         const passwordValue = inputs[1].value.trim();
 
-        // Validação Simples
+        // validação simples
         if (loginValue === '' || passwordValue === '') {
             alert('Por favor, preencha todos os campos.');
             return;
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log('Tentativa de login com:', loginValue);
 
-        // Se os dados estiverem corretos
+        // se os dados estiverem corretos
         if (loginValue === 'admin' && passwordValue === '1234') {
             alert('Acesso concedido! Bem-vindo ao Storm Life.');
         } else {
