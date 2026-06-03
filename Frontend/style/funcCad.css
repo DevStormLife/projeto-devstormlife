@@ -22,33 +22,29 @@
             border-bottom: 2px solid #112d4e;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+
+       .logo {
+            height: 45px;
+            width: 45px;
+            margin-right: 10px;
+            cursor: pointer;
         }
 
-        /* --- ALTERAÇÃO NO CSS DA LOGO --- */
-        .logo-img {
-            height: 50px; /* Ajuste a altura conforme necessário */
-            width: auto;  /* Mantém a proporção da imagem */
-            object-fit: contain;
-        }
-
-        .logo-text h1 {
-            color: #000000;
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+        .titulo {
+            font-family: Arial, sans-serif;
+            font-size: 1.2rem;
             line-height: 1;
+            flex-grow: 1;
+            margin: 0;
+            margin-right: 10px;
+            cursor: pointer;
         }
 
-        .logo-text p {
-            color: #000000;
-            font-size: 10px;
-            letter-spacing: 0.5px;
-            margin-top: 2px;
-        }
+        .sub {
+            font-weight: 500;
+            font-size: 0.8rem;
+            margin: 0;    
+        }   
 
         .nav-links a {
             text-decoration: none;
