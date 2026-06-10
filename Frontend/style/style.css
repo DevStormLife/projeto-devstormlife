@@ -212,3 +212,19 @@ footer {
     max-width: 400px; 
     height: auto;
 }
+
+.btn-login {
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    color: white;
+    font-weight: bold;
+    margin-left: 25px;
+    background-color: #F18800;
+    padding: 8px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-login:hover {
+    background-color: #ba6b05;
+}
