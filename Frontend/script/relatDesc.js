@@ -1,3 +1,6 @@
+
+const API_URL = "http://localhost:8080/usuarios/cadastro";
+
 document.addEventListener('DOMContentLoaded', () => {
     
     const registrosAcesso = [
