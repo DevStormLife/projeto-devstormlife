@@ -1,5 +1,5 @@
 
-const API_URL = "http://localhost:8080/usuarios/cadastro";
+const API_URL = "http://localhost:8080/funcionarios";
 
 
 
