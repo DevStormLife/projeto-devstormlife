@@ -1,3 +1,5 @@
+const API_URL = "http://localhost:8080/usuarios/login";
+
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.querySelector('.login-form');
 
