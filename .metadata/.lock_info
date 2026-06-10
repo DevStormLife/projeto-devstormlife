@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 #Wed Jun 10 13:30:21 GMT-03:00 2026
 host=DEV-1531470
 process-id=19256
 user=Miguel Narvais
+=======
+#Wed Jun 10 13:41:04 GMT-03:00 2026
+host=DEV-1531468
+process-id=18176
+user=Pedro Cunha
+>>>>>>> 00b9fe93052c6182d720a29f4e7bb230ca0fc73f
