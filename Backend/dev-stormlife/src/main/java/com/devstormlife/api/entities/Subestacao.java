@@ -30,7 +30,7 @@ public class Subestacao {
     		regexp="^SUBEST-\\d{4}-\\d{2}$",
     		message="Código da subestação deve seguir o seguinte padrão: SUBEST-1234-56.")
     @NotBlank(message = "O código da estação é obrigatório.")
-    @Size(min=2, max=5, message="O código da estação deve ter entre 2 e 5 dígitos.")
+    @Size(min=12, max=15, message="O código da estação deve ter entre 12 e 15 dígitos.")
     private String codigoSubestacao;
     
     @NotBlank
