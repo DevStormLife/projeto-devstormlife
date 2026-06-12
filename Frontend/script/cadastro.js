@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/usuarios/cadastro";
+const API_URL = "http://localhost:8080/funcinarios/cadastro";
 
 document.addEventListener('DOMContentLoaded', () => {
     const cadastroForm = document.querySelector('.login-form');
