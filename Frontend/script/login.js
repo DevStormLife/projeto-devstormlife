@@ -9,19 +9,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // captura os valores dos inputs
         const inputs = document.querySelectorAll('.login-input');
-        const loginValue = inputs[0].value.trim();
-        const passwordValue = inputs[1].value.trim();
+        const loginValido = inputs[0].value.trim();
+        const SenhaValida = inputs[1].value.trim();
 
         // validação simples
-        if (loginValue === '' || passwordValue === '') {
+        if (loginValido === '' || senhaValida === '') {
             alert('Por favor, preencha todos os campos.');
             return;
         }
 
-        console.log('Tentativa de login com:', loginValue);
+        console.log('Tentativa de login com:', loginValido);
 
         // se os dados estiverem corretos
-        if (loginValue === 'admin' && passwordValue === '1234') {
+        if (loginValido === 'admin' && senhaValida === '1234') {
             alert('Acesso concedido! Bem-vindo ao Storm Life.');
         } else {
             alert('Usuário ou senha incorretos.');
