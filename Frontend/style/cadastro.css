@@ -63,7 +63,7 @@ footer {
 }
 
 
-.login-area {
+.cadastro-area {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,22 +71,22 @@ footer {
     background-color: #0f3459;
 }
 
-.login-card {
-    background-color: #EEF2F5;
+.cadastro-card {
+    background-color: #ffff;
     width: 450px;
     border-radius: 12px; 
     overflow: hidden;  
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-.login-header {
+.cadastro-header {
     background-color: #F18800;
     border-bottom: 8px solid #D17600; 
     padding: 15px 0;
     text-align: center;
 }
 
-.login-header h2 {
+.cadastro-header h2 {
     color: white;
     margin: 0;
     font-family: Arial, sans-serif;
@@ -94,7 +94,7 @@ footer {
     font-weight: bold;
 }
 
-.login-form {
+.cadastro-form {
     padding: 40px;
     display: flex;
     flex-direction: column;
@@ -102,7 +102,7 @@ footer {
 }
 
 
-.login-input {
+.cadastro-input {
     background-color: #12375C;
     color: white;
     border: none;
@@ -114,7 +114,7 @@ footer {
     outline: none;
 }
 
-.login-input::placeholder {
+.cadastro-input::placeholder {
     color: white;
     opacity: 1;
 }
