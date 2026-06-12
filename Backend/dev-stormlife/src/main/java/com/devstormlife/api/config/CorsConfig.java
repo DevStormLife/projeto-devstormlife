@@ -24,12 +24,12 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         
         // Liberação explícita de acesso endpoint por endpoint
-        source.registerCorsConfiguration("/funcionarios", config);
-        source.registerCorsConfiguration("/usuarios", config);
-        source.registerCorsConfiguration("/usuarios/login", config);
-        source.registerCorsConfiguration("/usuarios/cadastro", config);
-        source.registerCorsConfiguration("/cartao", config);
-        source.registerCorsConfiguration("/subestacoes", config);
+        source.registerCorsConfiguration("/funcionarios/**", config);
+        source.registerCorsConfiguration("/usuarios/**", config);
+        source.registerCorsConfiguration("/usuarios/login/**", config);
+        source.registerCorsConfiguration("/usuarios/cadastro/**", config);
+        source.registerCorsConfiguration("/cartao/**", config);
+        source.registerCorsConfiguration("/subestacoes/**", config);
 
         // Retorna a configuração estruturada para o ecossistema do Spring
         return new CorsFilter(source);
