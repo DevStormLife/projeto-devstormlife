@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/funcionarios")
-@CrossOrigin("*")
+
 public class FuncionarioController {
 	
 	@Autowired
@@ -45,7 +45,7 @@ public class FuncionarioController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@PostMapping
+	@PostMapping("/cadastro")
 	public ResponseEntity<Funcionario> criar(@Valid @RequestBody Funcionario funcionario) {
 		Funcionario novoFuncionario = service.salvar(funcionario);
 		
