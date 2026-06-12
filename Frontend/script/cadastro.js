@@ -17,13 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // validação do CPF
         if (cpf.length < 11) {
             alert('Por favor, insira um CPF válido.');
             return;
         }
 
-        // validação da senha
         if (senha.length < 8) {
             alert('A senha deve ter no mínimo 8 caracteres.');
             return;

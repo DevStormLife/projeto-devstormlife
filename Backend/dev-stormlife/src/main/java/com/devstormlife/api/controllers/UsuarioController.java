@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.devstormlife.api.entities.Usuario;
 import com.devstormlife.api.services.UsuarioService;
 
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -23,7 +22,7 @@ public class UsuarioController {
     private UsuarioService service;
     
     @PostMapping("/cadastro")
-    public ResponseEntity<Usuario> cadastrar(@Valid @RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario){
         
         Usuario usuarioSalvo = service.salvar(usuario);
         

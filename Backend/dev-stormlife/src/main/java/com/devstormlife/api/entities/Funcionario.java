@@ -2,7 +2,6 @@ package com.devstormlife.api.entities;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import com.devstormlife.api.validations.annotations.SenhaValida;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -37,7 +36,6 @@ public class Funcionario {
 	@Column(unique = true)
 	private String email;
 
-	@SenhaValida
 	@NotBlank(message = "A Senha é obrigatóra")
 	@Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres")
 	@Column(nullable = false)

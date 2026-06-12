@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             // Se era o último funcionário, recarrega para mostrar a mensagem de "Nenhum cadastrado"
                             if (tabela.querySelectorAll('tr').length === 0) {
                                 carregarFuncionarios();
-                            }
+                            }   
                         }, 300);
                     } else {
                         alert("Não foi possível excluir o funcionário no servidor.");
