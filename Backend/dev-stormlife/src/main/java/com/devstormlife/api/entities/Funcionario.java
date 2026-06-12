@@ -3,6 +3,7 @@ package com.devstormlife.api.entities;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.devstormlife.api.validations.annotations.SenhaValida;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
@@ -53,6 +54,7 @@ public class Funcionario {
 	// Ligação com a outra entidade
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cartao_acesso_id", referencedColumnName = "id")
+	@JsonIgnore
 	private CartaoAcesso cartaoAcesso;
 
 	// Ligação à Subestação
