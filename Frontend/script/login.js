@@ -1,30 +1,41 @@
 const API_URL = "http://localhost:8080/usuarios/login";
 
-document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.querySelector('.login-form');
+const formLogin = document.getElementById("form-login");
+const mensagemErro = document.getElementById("mensagem-erro");
 
-    loginForm.addEventListener('submit', (event) => {
-        // impede que a página recarregue ao clicar no botão
-        event.preventDefault();
+formLogin.addEventListener("submit", async function(event){
+    // Evita que o navegador recarregue a página ao clicar no botão "Entrar"
+    event.preventDefault();
 
-        // captura os valores dos inputs
-        const inputs = document.querySelectorAll('.login-input');
-        const loginValido = inputs[0].value.trim();
-        const SenhaValida = inputs[1].value.trim();
+    // Captura os valores digitados nos inputs
+    const loginInput = document.getElementById("login").value;
+    const senhaInput = document.getElementById("senha").value;
 
-        // validação simples
-        if (loginValido === '' || senhaValida === '') {
-            alert('Por favor, preencha todos os campos.');
-            return;
-        }
+    try {
+        // Dispara um POST enviando o login e senha no "corpo" (body) da requisição
+        const resposta = await fetch("http://localhost:8080/api/usuarios/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" }, // Avisa que estamos a enviar um JSON
+            body: JSON.stringify({
+                login: loginInput,
+                senha: senhaInput
+            })
+        });
 
-        console.log('Tentativa de login com:', loginValido);
+        // Se a API retornar um status de sucesso (200 OK)
+        if (resposta.ok) {
+            const dadosUsuario = await resposta.json();
 
-        // se os dados estiverem corretos
-        if (loginValido === 'admin' && senhaValida === '1234') {
-            alert('Acesso concedido! Bem-vindo ao Storm Life.');
+            // Grava os dados do usuário na memória do navegador (localStorage)
+            localStorage.setItem("usuarioSessao", JSON.stringify(dadosUsuario));
+
+            // Redireciona o utilizador para a tela de administração
+            window.location.href = "admin.html";
         } else {
-            alert('Usuário ou senha incorretos.');
+            mensagemErro.innerText = "Usuário ou senha inválidos!";
         }
-    });
+    } catch (erro) {
+        console.error(erro);
+        mensagemErro.innerText = "Erro ao conectar com o servidor.";
+    }
 });
