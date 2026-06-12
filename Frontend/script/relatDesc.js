@@ -1,60 +1,78 @@
-
 const API_URL = "http://localhost:8080/usuarios/cadastro";
 
-document.addEventListener('DOMContentLoaded', () => {
-    
-    const registrosAcesso = [
-         { nome: "Guilherme Melos", rf: "0001", data: "13/05/2026 7:00", local: "Setor Sul", sub: "SE-03" },
-        { nome: "Miguel Narvais", rf: "0014", data: "13/05/2026 08:45", local: "Sala de Máquinas", sub: "SE-01" },
-        { nome: "Miguel Lopes", rf: "0015", data: "13/05/2026 09:12", local: "Setor Norte", sub: "SE-04" },
-        { nome: "Pedro Santos", rf: "0021", data: "13/05/2026 10:05", local: "Painel Central", sub: "SE-01" },
-        { nome: "Victor Braga", rf: "0030", data: "13/05/2026 10:30", local: "Estacionamento", sub: "SE-02" }
-    ];
+let registrosAcesso = [];
 
-    const tbody = document.querySelector('.tabela tbody');
-    const btnFiltros = document.querySelector('.filtros');
+const tbody = document.querySelector('.tabela tbody');
+const btnFiltros = document.querySelector('.filtros');
+const cardHeader = document.querySelector('.card-header');
 
-    function renderizarTabela(dados) {
-        tbody.innerHTML = "";
+const btnAdicionar = document.createElement('span');
+btnAdicionar.textContent = "Adicionar";
+btnAdicionar.className = "filtros"; 
+btnAdicionar.style.cursor = "pointer";
+btnAdicionar.style.marginLeft = "10px";
+cardHeader.appendChild(btnAdicionar);
 
-        if (dados.length === 0) {
-            tbody.innerHTML = <tr><td colspan="5" style="text-align:center">Nenhum registro encontrado.</td></tr>;
-            return;
-        }
+function renderizarTabela(dados) {
+    tbody.innerHTML = "";
 
-        dados.forEach(item => {
-            const linha = document.createElement('tr');
-            linha.innerHTML = `
-                <td>${item.nome}</td>
-                <td>${item.rf}</td>
-                <td>${item.data}</td>
-                <td>${item.local}</td>
-                <td>${item.sub}</td>
-            `;
-            tbody.appendChild(linha);
-        });
+    if (dados.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center">Nenhum registro encontrado.</td></tr>`;
+        return;
     }
 
+    dados.forEach(item => {
+        const linha = document.createElement('tr');
+        linha.innerHTML = `
+            <td>${item.nome}</td>
+            <td>${item.rf}</td>
+            <td>${item.dataHora}</td>
+            <td>${item.local}</td>
+            <td>${item.codSubestacao}</td>
+        `;
+        tbody.appendChild(linha);
+    });
+}
+
+renderizarTabela(registrosAcesso);
+
+btnAdicionar.addEventListener('click', () => {
+    const nome = prompt("Digite o Nome:");
+    if (!nome) return;
+
+    const rf = prompt("Digite o RF:");
+    const dataHora = prompt("Digite a Data/Hora (Ex: 12/06/2026 15:30):");
+    const local = prompt("Digite o Local:");
+    const codSubestacao = prompt("Digite o Cód. Subestação:");
+
+    const novoRegistro = {
+        nome: nome,
+        rf: rf || "-",
+        dataHora: dataHora || "-",
+        local: local || "-",
+        codSubestacao: codSubestacao || "-"
+    };
+
+    registrosAcesso.push(novoRegistro);
     renderizarTabela(registrosAcesso);
+});
 
-    btnFiltros.style.cursor = "pointer"; 
-    btnFiltros.addEventListener('click', () => {
-        const termoBusca = prompt("Digite o Nome ou RF para filtrar:");
-        
-        if (termoBusca !== null) {
-            const filtrados = registrosAcesso.filter(reg => 
-                reg.nome.toLowerCase().includes(termoBusca.toLowerCase()) || 
-                reg.rf.includes(termoBusca)
-            );
-            renderizarTabela(filtrados);
-        }
-    });
+btnFiltros.style.cursor = "pointer"; 
+btnFiltros.addEventListener('click', () => {
+    const termoBusca = prompt("Digite o Nome ou RF para filtrar:");
+    
+    if (termoBusca !== null) {
+        const filtrados = registrosAcesso.filter(reg => 
+            reg.nome.toLowerCase().includes(termoBusca.toLowerCase()) || 
+            reg.rf.includes(termoBusca)
+        );
+        renderizarTabela(filtrados);
+    }
+});
+const tituloRelatorio = document.querySelector('.card-header h2');
+tituloRelatorio.style.cursor = "pointer";
+tituloRelatorio.title = "Clique para imprimir este relatório";
 
-    const tituloRelatorio = document.querySelector('.card-header h2');
-    tituloRelatorio.style.cursor = "pointer";
-    tituloRelatorio.title = "Clique para imprimir este relatório";
-
-    tituloRelatorio.addEventListener('click', () => {
-        window.print();
-    });
+tituloRelatorio.addEventListener('click', () => {
+    window.print();
 });
