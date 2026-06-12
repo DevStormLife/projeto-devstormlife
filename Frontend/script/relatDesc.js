@@ -6,6 +6,10 @@ const tbody = document.querySelector('.tabela tbody');
 const btnFiltros = document.querySelector('.filtros');
 const cardHeader = document.querySelector('.card-header');
 
+const modal = document.getElementById('modalAdicionar');
+const formAdicionar = document.getElementById('formAdicionar');
+const btnCancelarModal = document.getElementById('btnCancelarModal');
+
 const btnAdicionar = document.createElement('span');
 btnAdicionar.textContent = "Adicionar";
 btnAdicionar.className = "filtros"; 
@@ -37,24 +41,29 @@ function renderizarTabela(dados) {
 renderizarTabela(registrosAcesso);
 
 btnAdicionar.addEventListener('click', () => {
-    const nome = prompt("Digite o Nome:");
-    if (!nome) return;
+    formAdicionar.reset();
+    modal.showModal();
+});
 
-    const rf = prompt("Digite o RF:");
-    const dataHora = prompt("Digite a Data/Hora (Ex: 12/06/2026 15:30):");
-    const local = prompt("Digite o Local:");
-    const codSubestacao = prompt("Digite o Cód. Subestação:");
+btnCancelarModal.addEventListener('click', () => {
+    modal.close();
+});
+
+formAdicionar.addEventListener('submit', (e) => {
+    e.preventDefault(); 
 
     const novoRegistro = {
-        nome: nome,
-        rf: rf || "-",
-        dataHora: dataHora || "-",
-        local: local || "-",
-        codSubestacao: codSubestacao || "-"
+        nome: document.getElementById('modalNome').value,
+        rf: document.getElementById('modalRf').value || "-",
+        dataHora: document.getElementById('modalDataHora').value || "-",
+        local: document.getElementById('modalLocal').value || "-",
+        codSubestacao: document.getElementById('modalCodSubestacao').value || "-"
     };
 
     registrosAcesso.push(novoRegistro);
     renderizarTabela(registrosAcesso);
+    
+    modal.close();
 });
 
 btnFiltros.style.cursor = "pointer"; 
@@ -69,6 +78,7 @@ btnFiltros.addEventListener('click', () => {
         renderizarTabela(filtrados);
     }
 });
+
 const tituloRelatorio = document.querySelector('.card-header h2');
 tituloRelatorio.style.cursor = "pointer";
 tituloRelatorio.title = "Clique para imprimir este relatório";
