@@ -20,7 +20,7 @@ public class CorsConfig {
         
         // Permite todos os métodos HTTP necessários para o CRUD (GET, POST, PUT, DELETE)
         config.addAllowedMethod("*"); 
-
+        
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         
         // Liberação explícita de acesso endpoint por endpoint
@@ -30,7 +30,7 @@ public class CorsConfig {
         source.registerCorsConfiguration("/usuarios/cadastro", config);
         source.registerCorsConfiguration("/cartao", config);
         source.registerCorsConfiguration("/subestacoes", config);
-
+        
         // Retorna a configuração estruturada para o ecossistema do Spring
         return new CorsFilter(source);
     }

@@ -1,16 +1,28 @@
 const API_URL = "http://localhost:8080/funcinarios/cadastro";
 
 document.addEventListener('DOMContentLoaded', () => {
-    const cadastroForm = document.querySelector('.login-form');
+    const cadastroForm = document.querySelector('#login-form').value;
 
-    cadastroForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+    cadastroForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-        const inputs = document.querySelectorAll('.login-input');
-        const nome = inputs[0].value.trim();
-        const cpf = inputs[1].value.trim();
-        const email = inputs[2].value.trim();
-        const senha = inputs[3].value.trim();
+        // const inputs = document.querySelectorAll('#login-input').value;
+        // const nome = inputs[0].value.trim();
+        // const cpf = inputs[1].value.trim();
+        // const email = inputs[2].value.trim();
+        // const senha = inputs[3].value.trim();
+
+        const funcionario = {
+            email: document.querySelector('#email').value,
+            senha: document.querySelector('#senha').value,
+            tipo: document.querySelector('#tipo').value
+        }
+        
+        await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(funcionario)
+    });
 
         if (!nome, !cpf, !email, !senha) {
             alert('Por favor, preencha todos os campos do cadastro.');
