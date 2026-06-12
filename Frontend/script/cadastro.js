@@ -1,30 +1,18 @@
-const API_URL = "http://localhost:8080/funcinarios/cadastro";
+const API_URL = "http://localhost:8080/funcionarios/cadastro";
 
 document.addEventListener('DOMContentLoaded', () => {
-    const cadastroForm = document.querySelector('#login-form').value;
+    const cadastroForm = document.querySelector('#cadastro-form');
 
     cadastroForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // const inputs = document.querySelectorAll('#login-input').value;
-        // const nome = inputs[0].value.trim();
-        // const cpf = inputs[1].value.trim();
-        // const email = inputs[2].value.trim();
-        // const senha = inputs[3].value.trim();
+        const nome = document.querySelector('#nome').value.trim();
+        const cpf = document.querySelector('#cpf').value.trim();
+        const email = document.querySelector('#email').value.trim();
+        const senha = document.querySelector('#senha').value.trim();
+        const cargo = document.querySelector('#cargo').value.trim();
 
-        const funcionario = {
-            email: document.querySelector('#email').value,
-            senha: document.querySelector('#senha').value,
-            tipo: document.querySelector('#tipo').value
-        }
-        
-        await fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(funcionario)
-    });
-
-        if (!nome, !cpf, !email, !senha) {
+        if (!nome || !cpf || !email || !senha || !cargo) {
             alert('Por favor, preencha todos os campos do cadastro.');
             return;
         }
@@ -39,10 +27,33 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        console.log('Dados cadastrados:', { nome, cpf, email, senha });
 
-        alert('Cadastro realizado com sucesso!');
+        const funcionario = {
+            nome: nome,
+            email: email,
+            senha: senha,
+            cpf: cpf,
+            cargo: cargo,
+            subestacao: { id: 1 }
+        };
+        
+        try {
+            const resposta = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(funcionario)
+            });
 
-        window.location.href = '../index.html';
+            if (resposta.ok) {
+                alert('Cadastro realizado com sucesso!');
+                window.location.href = '../index.html';
+            } else {
+                const erroDados = await resposta.text();
+                alert('Erro no cadastro: ' + erroDados);
+            }
+        } catch (erro) {
+            console.error('Erro ao conectar com a API:', erro);
+            alert('Não foi possível conectar ao servidor.');
+        }
     });
 });
