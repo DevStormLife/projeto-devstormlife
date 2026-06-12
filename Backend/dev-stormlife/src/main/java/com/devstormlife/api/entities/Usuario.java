@@ -1,6 +1,6 @@
 package com.devstormlife.api.entities;
 
-import com.devstormlife.api.validations.annotations.SenhaValida;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,7 +25,7 @@ public class Usuario {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @SenhaValida
+    
     @NotBlank(message = "A Senha é obrigatória")
     @Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres")
     @Column(nullable = false)
