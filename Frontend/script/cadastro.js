@@ -1,12 +1,12 @@
 const API_URL = "http://localhost:8080/usuarios/cadastro";
 
 document.addEventListener('DOMContentLoaded', () => {
-    const cadastroForm = document.querySelector('.login-form');
+    const cadastroForm = document.querySelector('#login-form');
 
-    cadastroForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+    cadastroForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-        const inputs = document.querySelectorAll('.login-input');
+        const inputs = document.querySelectorAll('#login-input');
         const nome = inputs[0].value.trim();
         const cpf = inputs[1].value.trim();
         const email = inputs[2].value.trim();
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Por favor, preencha todos os campos do cadastro.');
             return;
         }
-
+        
         // validação do CPF
         if (cpf.length < 11) {
             alert('Por favor, insira um CPF válido.');
