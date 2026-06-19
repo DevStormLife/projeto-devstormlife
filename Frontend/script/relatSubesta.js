@@ -1,60 +1,81 @@
-const API_URL = "http://localhost:8080/subestacoes";
+const BASE_URL = 'http://localhost:8080//subestacoes';
 
-async function carregarRelatorioSubestacoes() {
-    const corpoTabela = document.querySelector("#tabelaRelatorio tbody");
+const SubestacaoService = {
+    async listarTodas() {
+        const response = await fetch(`${BASE_URL}/subestacoes`);
+        if (!response.ok) throw new Error('Erro ao buscar subestações.');
+        return await response.json();
+    }
+};
+
+const FuncionarioService = {
+    async criar(funcionario, idSubestacao) {
+  
+        const payload = {
+            ...funcionario,
+            subestacao: { id: idSubestacao }
+        };
+
+        const response = await fetch(`${BASE_URL}/funcionarios`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const erroData = await response.json();
+            throw new Error(erroData.message || 'Erro ao cadastrar funcionário.');
+        }
+        return await response.json();
+    }
+};
+
+async function renderizarTabela() {
+
+    const tabelaCorpo = document.querySelector('.table-container tbody') || document.querySelector('table tbody');
     
-    corpoTabela.innerHTML = `<tr><td colspan="4" style="text-align: center;">Carregando dados...</td></tr>`;
+    if (!tabelaCorpo) {
+        console.error("Elemento da tabela não foi encontrado no HTML.");
+        return;
+    }
 
     try {
-        const resposta = await fetch(API_URL);
-        
-        if (!resposta.ok) {
-            throw new Error(`Erro na requisição: ${resposta.status}`);
-        }
-
-        const subestacoes = await resposta.json();
-        
+  
+        const subestacoes = await SubestacaoService.listarTodas();
     
-        corpoTabela.innerHTML = "";
+        tabelaCorpo.innerHTML = ''; 
 
         if (subestacoes.length === 0) {
-            corpoTabela.innerHTML = `<tr><td colspan="4" style="text-align: center;">Nenhuma subestação encontrada.</td></tr>`;
+            tabelaCorpo.innerHTML = `
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 15px;">
+                        Nenhuma subestação cadastrada no sistema.
+                    </td>
+                </tr>`;
             return;
         }
 
         subestacoes.forEach(subestacao => {
-            const tr = document.createElement("tr");
-
-            
-            tr.innerHTML = `
-                <td>${subestacao.nome || "Sem Nome"}</td>
-                <td>${subestacao.localizacao || "Não informada"}</td>
-                <td>ID: ${subestacao.id}</td>
-                <td>${subestacao.codigoSubestacao || "Sem Código"}</td>
+            const linha = document.createElement('tr');
+            linha.innerHTML = `
+                <td>${subestacao.nome}</td>
+                <td>${subestacao.localizacao}</td>
+                <td>${subestacao.id}</td>
+                <td>${subestacao.codigoSubestacao}</td>
             `;
-
-            corpoTabela.appendChild(tr);
+            tabelaCorpo.appendChild(linha);
         });
 
-    } catch (erro) {
-        console.error("Erro ao buscar dados do servidor:", erro);
-        corpoTabela.innerHTML = `
+    } catch (error) {
+        console.error("Falha ao carregar o relatório:", error);
+
+        tabelaCorpo.innerHTML = `
             <tr>
-                <td colspan="4" style="text-align: center; color: red; font-weight: bold;">
+                <td colspan="4" style="color: #ff0000; text-align: center; font-weight: bold; padding: 15px;">
                     Erro ao carregar o relatório.
                 </td>
             </tr>`;
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-   
-    carregarRelatorioSubestacoes();
-
-    const btnHome = document.getElementById('btnHome');
-    if (btnHome) {
-        btnHome.onclick = () => {
-            window.location.href = "home.html";
-        };
-    }
-});
+document.addEventListener('DOMContentLoaded', renderizarTabela);
