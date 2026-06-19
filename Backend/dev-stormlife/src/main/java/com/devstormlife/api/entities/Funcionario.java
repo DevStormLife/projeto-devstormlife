@@ -66,6 +66,16 @@ public class Funcionario {
 	public Funcionario() {
 
 	}
+	
+	public Funcionario(String nome, String email, String senha, String cpf, String cargo, CartaoAcesso cartaoAcesso, Subestacao subestacao) {
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+		this.cpf = cpf;
+		this.cargo = cargo;
+		this.cartaoAcesso = cartaoAcesso;
+		this.subestacao = subestacao;
+	}
 
 	public Long getId() {
 		return id;
