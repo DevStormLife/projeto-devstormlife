@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8080//subestacoes';
+const BASE_URL = 'http://localhost:8080/subestacoes';
 
 const SubestacaoService = {
     async listarTodas() {
