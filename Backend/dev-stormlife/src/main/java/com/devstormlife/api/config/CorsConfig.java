@@ -21,7 +21,32 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         // Libera para a API inteira rodar sem travar em sub-rotas
         source.registerCorsConfiguration("/**", config); 
+        // Permite que qualquer site/navegador faça requisições para a API
+        config.addAllowedOrigin("*"); 
+        
+        // Permite o envio de qualquer cabeçalho HTTP (Content-Type, Autenticações, etc.)
+        config.addAllowedHeader("*");
+        
+        // Permite todos os métodos HTTP necessários para o CRUD (GET, POST, PUT, DELETE)
+        config.addAllowedMethod("*"); 
+        
+        UrlBasedCorsConfigurationSource source1 = new UrlBasedCorsConfigurationSource();
+        
+        // Liberação explícita de acesso endpoint por endpoint
 
-        return source;
+        source1.registerCorsConfiguration("/funcionarios", config);
+        source1.registerCorsConfiguration("/usuarios", config);
+        source1.registerCorsConfiguration("/usuarios/login", config);
+        source1.registerCorsConfiguration("/usuarios/cadastro", config);
+        source1.registerCorsConfiguration("/cartao", config);
+        source1.registerCorsConfiguration("/subestacoes", config);
+        source1.registerCorsConfiguration("/funcionarios/**", config);
+        source1.registerCorsConfiguration("/usuarios/**", config);
+        source1.registerCorsConfiguration("/usuarios/login/**", config);
+        source1.registerCorsConfiguration("/usuarios/cadastro/**", config);
+        source1.registerCorsConfiguration("/cartao/**", config);
+        source1.registerCorsConfiguration("/subestacoes/**", config);
+
+        return source1;
     }
 }
