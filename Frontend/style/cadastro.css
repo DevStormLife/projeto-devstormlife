@@ -149,3 +149,7 @@ footer {
     box-shadow: 0 0 1px white;
     color: white;
 }
+
+.btnVoltar{
+    text-decoration: none;
+}
