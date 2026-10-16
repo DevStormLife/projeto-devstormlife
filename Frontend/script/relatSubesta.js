@@ -2,7 +2,8 @@ const BASE_URL = 'http://localhost:8080/subestacoes';
 
 const SubestacaoService = {
     async listarTodas() {
-        const response = await fetch(`${BASE_URL}/subestacoes`);
+        // CORREÇÃO: Removido o '/subestacoes' extra do final
+        const response = await fetch(BASE_URL); 
         if (!response.ok) throw new Error('Erro ao buscar subestações.');
         return await response.json();
     }
@@ -10,12 +11,13 @@ const SubestacaoService = {
 
 const FuncionarioService = {
     async criar(funcionario, idSubestacao) {
-  
         const payload = {
             ...funcionario,
             subestacao: { id: idSubestacao }
         };
 
+        // Se a rota do backend for http://localhost:8080/funcionarios, você deve ajustar aqui.
+        // Se for http://localhost:8080/subestacoes/funcionarios, então está correto.
         const response = await fetch(`${BASE_URL}/funcionarios`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -31,8 +33,8 @@ const FuncionarioService = {
 };
 
 async function renderizarTabela() {
-
-    const tabelaCorpo = document.querySelector('.table-container tbody') || document.querySelector('table tbody');
+    // Melhorado: usando o ID direto da sua tabela para garantir que pegue o elemento certo
+    const tabelaCorpo = document.querySelector('#tabelaRelatorio tbody');
     
     if (!tabelaCorpo) {
         console.error("Elemento da tabela não foi encontrado no HTML.");
@@ -40,9 +42,7 @@ async function renderizarTabela() {
     }
 
     try {
-  
         const subestacoes = await SubestacaoService.listarTodas();
-    
         tabelaCorpo.innerHTML = ''; 
 
         if (subestacoes.length === 0) {
