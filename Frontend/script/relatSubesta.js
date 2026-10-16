@@ -78,4 +78,4 @@ async function renderizarTabela() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', renderizarTabela);
+document.addEventListener('DOMContentLoaded', renderizarTabela);    
