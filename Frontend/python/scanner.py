@@ -1,13 +1,12 @@
 import cv2
 import requests
 import time
+import serial  # Comunicação com Arduino/ESP32 para abrir a trava física
 from ultralytics import YOLO
 
-# 1. Carregar o modelo YOLO treinado para EPIs
-# Substitua 'melhor_modelo_epi.pt' pelo caminho do arquivo de pesos treinado
+# 1. Inicialização da IA e Configurações
 model = YOLO('melhor_modelo_epi.pt')
 
-# 2. Mapeamento das classes exigidas pela Subestação
 EPI_OBRIGATORIOS = {
     'capacete',
     'oculos_protecao',
@@ -16,89 +15,93 @@ EPI_OBRIGATORIOS = {
     'vestimenta_atpv'
 }
 
-# Configuração da Câmera (0 é a webcam padrão ou insira a URL da câmera IP)
-cap = cv2.VideoCapture(0)
+BACKEND_URL = "http://localhost:5000/api/acesso/liberar-cartao"
 
-# URL da sua API Backend (exemplo)
-BACKEND_URL = "http://localhost:5000/api/acesso/validar"
+# Opcional: Comunicação Serial com Arduino/ESP32 (substitua 'COM3' ou '/dev/ttyUSB0')
+try:
+    arduino = serial.Serial('COM3', 9600, timeout=1)
+    time.sleep(2) # Tempo para estabilizar a conexão serial
+    hardware_conectado = True
+    print("[HARDWARE] Conectado ao leitor/trava via Serial.")
+except Exception as e:
+    hardware_conectado = False
+    print(f"[HARDWARE WARN] Sem conexão Serial (Modo Simulação): {e}")
 
-def enviar_status_backend(liberado: bool, epis_detectados: list, epis_faltantes: list):
-    """Envia o resultado do checkout para o servidor BackEnd."""
-    payload = {
-        "status": "APROVADO" if liberado else "REPROVADO",
-        "epis_detectados": list(epis_detectados),
-        "epis_faltantes": list(epis_faltantes),
-        "timestamp": time.time()
-    }
+def liberar_porta_e_cartao():
+    """Aciona a API do backend e dispara a trava física."""
+    print("\n[CHECKLIST APROVADO] Liberando cartão e acionando trava...")
+    
+    # 1. Envia comando ao Backend para habilitar a leitura do cartão
     try:
-        response = requests.post(BACKEND_URL, json=payload, timeout=2)
-        print(f"[API] Status enviado: {response.status_code}")
+        payload = {"status": "CHECKLIST_OK", "cartao_habilitado": True}
+        res = requests.post(BACKEND_URL, json=payload, timeout=2)
+        print(f"[API] Backend notificado: {res.status_code}")
     except Exception as e:
-        print(f"[API ERROR] Falha ao comunicar com o backend: {e}")
+        print(f"[API ERROR] Falha ao comunicar com backend: {e}")
 
-print("Iniciando Scanner de EPIs...")
+    # 2. Envia sinal elétrico para o Arduino/ESP32 acionar o relé da porta
+    if hardware_conectado:
+        arduino.write(b'ABRIR_PORTA\n') # Envia comando pela serial
+
+# 2. Variáveis de Controle de Tempo para Estabilidade
+tempo_inicio_aprovacao = None
+TEMPO_NECESSARIO_SEGUNDOS = 3 # Precisa ficar 3s seguidos com todos os EPIs
+porta_liberada = False
+
+cap = cv2.VideoCapture(0)
 
 while cap.isOpened():
     success, frame = cap.read()
     if not success:
-        print("Erro ao acessar a câmera.")
         break
 
-    # Realizar a inferência com limiar de confiança de 50% (0.50)
     results = model(frame, conf=0.50, verbose=False)
-    
-    # Conjunto para armazenar o que foi detectado no frame atual
     detectados = set()
 
-    # Extrair rótulos dos objetos detectados
     for r in results:
         for box in r.boxes:
             cls_id = int(box.cls[0])
             label_name = model.names[cls_id].lower()
             detectados.add(label_name)
 
-    # Identificar quais EPIs faltam
     epis_presentes = detectados.intersection(EPI_OBRIGATORIOS)
     epis_faltantes = EPI_OBRIGATORIOS - epis_presentes
-    acesso_liberado = len(epis_faltantes) == 0
+    checklist_completo = (len(epis_faltantes) == 0)
 
-    # Renderizar as caixas de detecção no frame
-    annotated_frame = results[0].plot()
+    # Lógica do Temporizador de Validação
+    if checklist_completo:
+        if tempo_inicio_aprovacao is None:
+            tempo_inicio_aprovacao = time.time()
+        
+        tempo_decorrido = time.time() - tempo_inicio_aprovacao
 
-    # Exibir Checklist na tela em tempo real
-    y_offset = 30
-    cv2.putText(annotated_frame, "CHECKLIST DE SEGURANCA:", (10, y_offset),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
-    
-    for epi in EPI_OBRIGATORIOS:
-        y_offset += 25
-        if epi in epis_presentes:
-            status_text = f"[OK] {epi}"
-            color = (0, 255, 0) # Verde
-        else:
-            status_text = f"[X]  {epi}"
-            color = (0, 0, 255) # Vermelho
-            
-        cv2.putText(annotated_frame, status_text, (10, y_offset),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
-
-    # Mensagem Final de Acesso
-    if acesso_liberado:
-        cv2.putText(annotated_frame, "ACESSO LIBERADO", (10, y_offset + 40),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0), 3)
+        if tempo_decorrido >= TEMPO_NECESSARIO_SEGUNDOS and not porta_liberada:
+            liberar_porta_e_cartao()
+            porta_liberada = True
     else:
-        cv2.putText(annotated_frame, "ACESSO BLOQUEADO", (10, y_offset + 40),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
+        # Reseta o temporizador e bloqueia se a pessoa tirar algum EPI
+        tempo_inicio_aprovacao = None
+        porta_liberada = False
 
-    # Exibir janela do scanner
+    # Interface Visual (OpenCV)
+    annotated_frame = results[0].plot()
+    
+    # Exibir Status na Tela
+    if porta_liberada:
+        cv2.rectangle(annotated_frame, (0, 0), (640, 80), (0, 255, 0), -1)
+        cv2.putText(annotated_frame, "PORTA LIBERADA! APROXIME O CARTAO", (20, 50),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 2)
+    elif checklist_completo:
+        progresso = int(tempo_decorrido)
+        cv2.putText(annotated_frame, f"MANTENHA A POSICAO: {progresso}/{TEMPO_NECESSARIO_SEGUNDOS}s", (10, 50),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
+    else:
+        cv2.putText(annotated_frame, "EPIs FALTANTES - PORTA BLOQUEADA", (10, 50),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
+
     cv2.imshow("Scanner de Acesso - Subestacao SENAI", annotated_frame)
 
-    # Pressione 'c' para acionar o checkout e enviar a validação ao BackEnd
-    key = cv2.waitKey(1) & 0xFF
-    if key == ord('c'):
-        print("\n--- Processando Checkout de Entrada ---")
-        enviar_status_backend(acesso_liberado, epis_presentes, epis_faltantes)
-    elif key == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 cap.release()
