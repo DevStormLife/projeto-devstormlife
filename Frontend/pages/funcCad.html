@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Storm Life Security Access</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../style/funcCad.css">
 </head>
 <body>
 
     <header class="top-header">
         <a href="../index.html" class="btnVoltar">
-        <img class="logo" src="../img/logoimg.png" alt="logo"></a>
-        
+            <img class="logo" src="../img/logoimg.png" alt="logo">
+        </a>
         <h1 class="titulo">Storm Life <br><p class="sub">Security Access</p></h1>
-        
     </header>
 
     <main class="main-content">
@@ -35,6 +34,42 @@
             </table>
         </div>
     </main>
+
+    <!-- MODAL DE EDIÇÃO SEM A SUBESTAÇÃO -->
+    <div id="modalEditar" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Editar Funcionário</h2>
+            <form id="formEditar">
+                <input type="hidden" id="edit-id">
+                
+                <div class="form-group">
+                    <label for="edit-nome">Nome:</label>
+                    <input type="text" id="edit-nome" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-email">Email:</label>
+                    <input type="email" id="edit-email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-cpf">CPF:</label>
+                    <input type="text" id="edit-cpf" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-cargo">Cargo:</label>
+                    <input type="text" id="edit-cargo" required>
+                </div>
+
+                <div class="modal-botoes">
+                    <button type="submit" class="btn-salvar">Salvar Alterações</button>
+                    <button type="button" class="btn-cancelar" id="btnCancelar">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <footer class="main-footer">
         <p> © 2026 DevStormLife</p>
