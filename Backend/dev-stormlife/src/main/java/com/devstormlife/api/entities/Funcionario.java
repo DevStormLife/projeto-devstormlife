@@ -2,12 +2,15 @@ package com.devstormlife.api.entities;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import com.devstormlife.api.enums.Cargo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -46,8 +49,8 @@ public class Funcionario {
 	@Column(unique = true)
 	private String cpf;
 
-	@NotBlank
-	private String cargo;
+	@Enumerated(EnumType.STRING)
+	private Cargo cargo;
 
 	// Ligação com a outra entidade
 	@OneToOne(cascade = CascadeType.ALL)
@@ -67,7 +70,7 @@ public class Funcionario {
 
 	}
 	
-	public Funcionario(String nome, String email, String senha, String cpf, String cargo, CartaoAcesso cartaoAcesso, Subestacao subestacao) {
+	public Funcionario(String nome, String email, String senha, String cpf, Cargo cargo, CartaoAcesso cartaoAcesso, Subestacao subestacao) {
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
@@ -117,11 +120,11 @@ public class Funcionario {
 		this.cpf = cpf;
 	}
 	
-	public String getCargo() {
+	public Cargo getCargo() {
 		return cargo;
 	}
 	
-	public void setCargo(String cargo) {
+	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
 	}
 	
