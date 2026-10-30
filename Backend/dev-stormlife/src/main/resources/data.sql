@@ -7,6 +7,3 @@ INSERT IGNORE INTO subestacoes (id, nome_estacao, codigo_subestacao, localizacao
 
 INSERT IGNORE INTO cartoes_acesso (id, codigo_serial, subestacao_id) VALUES
 (1, '12345', 1);
-
-INSERT IGNORE INTO funcionarios (id, nome, email, senha, cpf, cargo, cartao_acesso_id, fk_subestacao) VALUES
-(1, "Aranha come-come", 'aranhacomecome@gmail.com', 'Comecomeç@1234', '976.437.620-74', 'Funcionário', 1, 1);

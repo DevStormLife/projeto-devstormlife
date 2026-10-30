@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nome: document.getElementById('edit-nome').value,
             email: document.getElementById('edit-email').value,
             cpf: document.getElementById('edit-cpf').value,
-            cargo: document.getElementById('edit-cargo').value,
+            cargo: document.getElementById('edit-cargo').value.toUpperCase(),
             subestacao: {
                 id: 1 // Mantém um ID de subestação padrão válido para não falhar na validação do Backend
             }

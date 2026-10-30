@@ -1,48 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Separado</title>
+    <title>Cadastro</title>
     <link rel="stylesheet" href="../style/cadastro.css">
 </head>
 <body>
     
     <header>
         <a href="../index.html" class="btnVoltar">
-        <img class="logo" src="../img/logoimg.png" alt="logo"></a>
+            <img class="logo" src="../img/logoimg.png" alt="logo">
+        </a>
         <h1 class="titulo">Storm Life <br><p class="sub">Security Access</p></h1>
     </header>
-    
+
+    <main class="cadastro-area">
+        <div class="cadastro-card">
+            <div class="cadastro-header">
+                <h2>CADASTRO</h2>
+            </div>
+            
+            <form id="cadastro-form" class="cadastro-form">
+                <input type="text" id="nome" class="cadastro-input" placeholder="NOME:" required>
+                <input type="text" id="cpf" class="cadastro-input" placeholder="CPF:" required>
+                <input type="email" id="email" class="cadastro-input" placeholder="EMAIL:" required>
+                <input type="password" id="senha" class="cadastro-input" placeholder="SENHA:" required>
+                
+                <select id="cargo" class="cadastro-input" required>
+                    <option value="" disabled selected hidden>CARGO:</option>
+                    <option value="OPERADOR">Operador</option>
+                    <option value="ENGENHEIRO">Engenheiro</option>
+                    <option value="ELETROTECNICO">Eletrotecnico</option>
+                    <option value="SUPERVISOR">Supervisor</option>
+                    <option value="CHEFE">Chefe</option>
+                </select>
+                
+                <button type="submit" class="btn-entrar" id="btn-entrar">CADASTRAR</button>
+            </form>
+        </div>
+    </main>
+
     <footer>
         <h2>© 2026 DevStormLife</h2>
     </footer>
-    <main class="cadastro-area">
-    <div class="cadastro-card">
-        <div class="cadastro-header">
-            <h2>CADASTRO</h2>
-        </div>
-        
-        <form id="cadastro-form" class="cadastro-form">
-            <input type="text" id="nome" class="cadastro-input" placeholder="NOME:" required>
-            <input type="text" id="cpf" class="cadastro-input" placeholder="CPF:" required>
-            <input type="email" id="email" class="cadastro-input" placeholder="EMAIL:" required>
-            <input type="password" id="senha" class="cadastro-input" placeholder="SENHA:" required>
-            <select id="cargo" class="cadastro-input" required>
-    <option value="" disabled selected hidden>CARGO:</option>
-    <option value="operador">Operador</option>
-    <option value="engenheiro">Engenheiro</option>
-    <option value="eletrotecnico">Eletrotecnico</option>
-    <option value="supervisor">Supervisor</option>
-    <option value="chefe">Chefe</option>
-</select>
-            
-            <a href="../index.html">
-            <button type="submit" class="btn-entrar" id="btn-entrar">ENTRAR</button>
-            </a>
-        </form>
-    </div>
+
     <script src="../script/cadastro.js"></script>
-</main>
 </body>
 </html>
