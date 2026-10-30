@@ -1,10 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #ecf2f2;
+    margin: 0;
+    padding: 0;
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
 header {
     background: #ECF2F2;
     margin: 0;
     display: flex;
     align-items: center;
     padding: 5px 20px;  
-    height: 60px;   
+    min-height: 60px;   
 }
 
 .logo {
@@ -29,11 +44,12 @@ header {
     margin: 0;    
 }
 
+/* CARDS DOS LINKS DA CLASSE .a */
 .a {
     text-decoration: none;
     font-family: Arial, sans-serif;
     color: #0f3459;
-    font-weight: 530;
+    font-weight: bold;
     font-size: 0.9rem;
     background-color: #ffffff;
     padding: 8px 16px;
@@ -42,14 +58,18 @@ header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
     transition: all 0.2s ease-in-out;
     margin: 0 6px;
+    text-align: center;
 }
 
 .a:hover {
     background-color: #0f3459;
     color: #ffffff;
     border-color: #0f3459;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
+/* CENTRALIZAÇÃO DOS CARDS NO HEADER (DESKTOP) */
 header .a:first-of-type {
     margin-left: auto;
 }
@@ -69,24 +89,24 @@ header .a:last-of-type {
     border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s;
+    display: inline-block;
+    text-align: center;
 }
 
 .btn-login:hover {
     background-color: #ba6b05;
 }
 
-body {
-    background: #ecf2f2;
-    margin: 0;
-    padding: 0;
-}
-
+/* ==========================================================================
+   SEÇÃO CIMA (HERO)
+   ========================================================================== */
 .cima {
     background: #0f3459;
     display: flex;        
     align-items: center;      
     justify-content: space-between; 
-    padding: 50px 80px;        
+    padding: 50px 80px;  
+    gap: 30px;      
 }
 
 .texto-hero {
@@ -112,9 +132,13 @@ body {
 
 .imgSubesta {
     max-width: 400px; 
+    width: 100%;
     height: auto;
 }
 
+/* ==========================================================================
+   SEÇÃO MEIO (SOLUÇÕES)
+   ========================================================================== */
 .meio {
     background: #FBFBFB;
     margin-top: -19px;
@@ -136,6 +160,7 @@ body {
 .cards-container {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
 }
@@ -149,7 +174,7 @@ body {
     text-align: center;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transition: transform 0.3s;
-    margin: 30px;
+    margin: 15px;
 }
 
 .card:hover {
@@ -176,6 +201,9 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* ==========================================================================
+   SEÇÃO BAIXO (IOT)
+   ========================================================================== */
 .baixo {
     display: flex;    
     align-items: center; 
@@ -203,30 +231,15 @@ body {
 
 .caminho {
     max-width: 400px;
+    width: 100%;
     height: auto;
 }
 
-.texto-container {
-    max-width: 50%;
-}
-
-.conteudo-baixo {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 40px;
-    padding: 20px 80px;
-}
-
-.lista-componentes {
-    display: flex;
-    flex-direction: column;
-}
-
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
 footer {
     background: #323232;
-    bottom: 0;
-    left: 0;         
     width: 100%;     
     color: white;
     font-family: Arial, sans-serif;
@@ -234,6 +247,80 @@ footer {
     justify-content: center; 
     align-items: center;     
     gap: 10px;
-    padding: 5px 0;
+    padding: 15px 0;
     font-size: 14px;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE (MEDIA QUERIES)
+   ========================================================================== */
+
+/* Tablets e telas até 992px */
+@media (max-width: 992px) {
+    header {
+        flex-direction: column;
+        padding: 15px;
+        height: auto;
+        gap: 15px;
+    }
+
+    header .a:first-of-type {
+        margin-left: 0;
+    }
+
+    header .a:last-of-type {
+        margin-right: 0;
+    }
+
+    .cima {
+        flex-direction: column;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .baixo {
+        flex-direction: column;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .container-iot {
+        align-items: center;
+    }
+}
+
+/* Celulares até 600px */
+@media (max-width: 600px) {
+    .t1 {
+        font-size: 26px;
+    }
+
+    .p1 {
+        font-size: 16px;
+        letter-spacing: 0.5px;
+    }
+
+    .a {
+        width: 100%;
+        margin: 4px 0;
+    }
+
+    .cards-container {
+        padding: 10px;
+    }
+
+    .card {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    #menu-usuario {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .btn-login {
+        margin-left: 0;
+        width: 100%;
+    }
 }
