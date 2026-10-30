@@ -25,7 +25,7 @@
    Body - Fundo Dinâmico de Alta Voltagem
    ========================================================================== */
 body {
-    background: radial-gradient(circle at 50% 30%, #174a7c 0%, var(--bg-main) 60%, var(--bg-main-dark) 100%);
+    background: #0f3459;
     margin: 0;
     padding: 0;
     font-family: var(--font-primary);
