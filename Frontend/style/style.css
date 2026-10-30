@@ -4,7 +4,7 @@ header {
     display: flex;
     align-items: center;
     padding: 5px 20px;  
-    height: 60px;        
+    height: 60px;   
 }
 
 .logo {
@@ -14,42 +14,10 @@ header {
     cursor: pointer;
 }
 
-.cima{
-   background: #0f3459;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 50px 20px;
-    color: white;
-}
-
-body{
-    background: #ecf2f2;
-    margin: 0;
-    padding: 0;
-}
-
-footer {
-    background: #323232;
-    /* position: fixed; */
-    bottom: 0;
-    left: 0;         
-    width: 100%;     
-    color: white;
-    font-family: Arial, sans-serif;
-    display: flex;  
-    justify-content: center; 
-    align-items: center;     
-    gap: 10px;
-    padding: 5px 0;
-    font-size: 14px;
-}
-
 .titulo {
     font-family: Arial, sans-serif;
     font-size: 1.2rem;
     line-height: 1;
-    flex-grow: 1;
     margin: 0;
     margin-right: 10px;
     cursor: pointer;
@@ -61,122 +29,56 @@ footer {
     margin: 0;    
 }
 
-.a{
+.a {
     text-decoration: none;
     font-family: Arial, sans-serif;
-    color: black;
+    color: #0f3459;
+    font-weight: 530;
+    font-size: 0.9rem;
+    background-color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease-in-out;
+    margin: 0 6px;
+}
+
+.a:hover {
+    background-color: #0f3459;
+    color: #ffffff;
+    border-color: #0f3459;
+}
+
+header .a:first-of-type {
+    margin-left: auto;
+}
+
+header .a:last-of-type {
+    margin-right: auto;
+}
+
+.btn-login {
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    color: white;
     font-weight: bold;
-    margin-left: 25px;
+    margin-left: 10px;
+    background-color: #F18800;
+    padding: 8px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s;
 }
 
-.solucao, .solucaop{
-    text-align: center;
-    font-family: Arial, sans-serif;
+.btn-login:hover {
+    background-color: #ba6b05;
 }
 
-.solucao{
-    padding-top: 25px;
-}
-
-.solucaop{
-    font-size: 20px;
-}
-
-.cards-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
-}
-
-.card {
-  background: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 20px;
-  width: 250px;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: transform 0.3s;
-  margin: 30px;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.card img {
-  width: 50px;
-  margin-bottom: 15px;
-}
-
-.card h3 {
-  margin: 10px 0;
-  font-size: 1.1rem;
-  color: #333;
-}
-
-.card p {
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.nr , p{
-    font-family: Arial, sans-serif;
-}
-
-.meio{
-    background: #FBFBFB;
-    margin-top: -19px;
-}
-
-.texto-container {
-    max-width: 50%;
-}
-
-.conteudo-baixo {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 40px;
-    padding: 20px 80px;
-}
-
-.lista-componentes {
-    display: flex;
-    flex-direction: column;
-}
-
-.baixo {
-    display: flex;    
-    align-items: center; 
-    justify-content: center;
-    gap: 50px;             
-    padding: 40px;
-    background: #ECF2F2;
-}
-
-.container-iot {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.iot {
-    margin: 15px;
-    font-family: Arial, sans-serif;
-}
-
-.no {
-    margin: 11px ;         
-    font-family: Arial, sans-serif;
-    
-}
-
-.caminho {
-    max-width: 400px;
-    height: auto;
-
+body {
+    background: #ecf2f2;
+    margin: 0;
+    padding: 0;
 }
 
 .cima {
@@ -213,18 +115,125 @@ footer {
     height: auto;
 }
 
-.btn-login {
-    text-decoration: none;
-    font-family: Arial, sans-serif;
-    color: white;
-    font-weight: bold;
-    margin-left: 25px;
-    background-color: #F18800;
-    padding: 8px 20px;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.meio {
+    background: #FBFBFB;
+    margin-top: -19px;
 }
 
-.btn-login:hover {
-    background-color: #ba6b05;
+.solucao, .solucaop {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.solucao {
+    padding-top: 25px;
+}
+
+.solucaop {
+    font-size: 20px;
+}
+
+.cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+    margin: 30px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 50px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.card p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.nr, p {
+    font-family: Arial, sans-serif;
+}
+
+.baixo {
+    display: flex;    
+    align-items: center; 
+    justify-content: center;
+    gap: 50px;             
+    padding: 40px;
+    background: #ECF2F2;
+}
+
+.container-iot {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.iot {
+    margin: 15px;
+    font-family: Arial, sans-serif;
+}
+
+.no {
+    margin: 11px;        
+    font-family: Arial, sans-serif;
+}
+
+.caminho {
+    max-width: 400px;
+    height: auto;
+}
+
+.texto-container {
+    max-width: 50%;
+}
+
+.conteudo-baixo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
+    padding: 20px 80px;
+}
+
+.lista-componentes {
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    background: #323232;
+    bottom: 0;
+    left: 0;         
+    width: 100%;     
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;  
+    justify-content: center; 
+    align-items: center;     
+    gap: 10px;
+    padding: 5px 0;
+    font-size: 14px;
 }
