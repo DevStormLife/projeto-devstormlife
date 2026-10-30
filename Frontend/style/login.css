@@ -72,10 +72,10 @@ header {
     color: #0f3459;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    flex-grow: 1;
     margin: 0;
     margin-right: 10px;
     cursor: pointer;
+    line-height: 1;
 }
 
 .sub {

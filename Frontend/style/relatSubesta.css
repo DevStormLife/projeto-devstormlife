@@ -1,3 +1,10 @@
+:root {
+    --bg-header: #ECF2F2;
+    --orange-electric: #F18800;
+    --orange-dark: #D17600;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 body {
     background: #0f3459;
     margin: 0;
@@ -5,50 +12,124 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* ==========================================================================
+   HEADER TECNOLÓGICO (Igual aos demais)
+   ========================================================================== */
 header {
-    background: #ECF2F2;
+    background: var(--bg-header);
     margin: 0;
     display: flex;
     align-items: center;
-    padding: 5px 20px;
-    height: 60px;
+    padding: 0 30px;  
+    height: 65px;        
+    border-bottom: 3px solid var(--orange-electric);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+}
+
+.btnVoltar {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
 }
 
 .logo {
-    height: 45px;
-    width: 45px;
-    margin-right: 10px;
+    height: 40px;
+    width: 40px;
+    margin-right: 15px;
     cursor: pointer;
+    transition: var(--transition);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.logo:hover {
+    transform: scale(1.08) rotate(-3deg);
 }
 
 .titulo {
-    font-family: Arial, sans-serif;
-    font-size: 1.2rem;
-    line-height: 1;
-    flex-grow: 1;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f3459;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
     margin: 0;
     margin-right: 10px;
     cursor: pointer;
+    line-height: 1;
 }
 
 .sub {
-    font-weight: 500;
-    font-size: 0.8rem;
-    margin: 0;
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--orange-dark);
+    letter-spacing: 1px;
+    margin-top: 2px;
 }
 
-footer {
-    background: #323232;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    color: white;
+/* CARDS DOS LINKS DA CLASSE .a (CENTRALIZADOS) */
+.a {
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    color: #0f3459;
+    font-weight: bold;
+    font-size: 0.9rem;
+    background-color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+    transition: var(--transition);
+    margin: 0 6px;
+    text-align: center;
+}
+
+.a:hover {
+    background-color: #0f3459;
+    color: #ffffff;
+    border-color: #0f3459;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+header .a:first-of-type {
+    margin-left: auto;
+}
+
+header .a:last-of-type {
+    margin-right: auto;
+}
+
+#menu-usuario {
     display: flex;
-    justify-content: center;
+    gap: 10px;
     align-items: center;
-    padding: 5px 0;
 }
 
+.btn-login {
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    color: white;
+    font-weight: bold;
+    margin-left: 10px;
+    background-color: var(--orange-electric);
+    padding: 8px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-login:hover {
+    background-color: var(--orange-dark);
+}
+
+/* ==========================================================================
+   CONTEÚDO E CARD DO RELATÓRIO
+   ========================================================================== */
 .login-area {
     display: flex;
     justify-content: center;
@@ -83,6 +164,9 @@ footer {
     padding: 25px;
 }
 
+/* ==========================================================================
+   TABELA
+   ========================================================================== */
 .minha-tabela {
     width: 100%;
     border-collapse: collapse;
@@ -108,4 +192,39 @@ footer {
 
 .minha-tabela tr:hover {
     background-color: #ffe0b3;
+}
+
+/* ==========================================================================
+   RODAPÉ
+   ========================================================================== */
+footer {
+    background: #323232;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE
+   ========================================================================== */
+@media (max-width: 992px) {
+    header {
+        flex-direction: column;
+        padding: 15px;
+        height: auto;
+        gap: 15px;
+    }
+
+    header .a:first-of-type {
+        margin-left: 0;
+    }
+
+    header .a:last-of-type {
+        margin-right: 0;
+    }
 }

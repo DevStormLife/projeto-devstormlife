@@ -1,37 +1,104 @@
+:root {
+    --bg-header: #ECF2F2;
+    --orange-electric: #F18800;
+    --orange-dark: #D17600;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #12375c;
 }
 
+/* ==========================================================================
+   HEADER TECNOLÓGICO (Igual aos demais)
+   ========================================================================== */
 header {
-    background-color: rgb(236, 242, 242);
+    background: var(--bg-header);
+    margin: 0;
     display: flex;
     align-items: center;
-    padding: 10px 20px;
+    padding: 0 30px;  
+    height: 65px;        
+    border-bottom: 3px solid var(--orange-electric);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+}
+
+.btnVoltar {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
 }
 
 .logo {
-    height: 45px;
-    width: 45px;
-    margin-right: 10px;
+    height: 40px;
+    width: 40px;
+    margin-right: 15px;
     cursor: pointer;
+    transition: var(--transition);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.logo:hover {
+    transform: scale(1.08) rotate(-3deg);
 }
 
 .titulo {
-    font-family: Arial, sans-serif;
-    font-size: 1.2rem;
-    line-height: 1;
-    flex-grow: 1;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f3459;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
     margin: 0;
     margin-right: 10px;
     cursor: pointer;
+    line-height: 1;
 }
 
 .sub {
-    font-weight: 500;
-    font-size: 0.8rem;
-    margin: 0;    
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--orange-dark);
+    letter-spacing: 1px;
+    margin-top: 2px;
+}
+
+/* CARDS DOS LINKS DA CLASSE .a (CENTRALIZADOS) */
+.a {
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    color: #0f3459;
+    font-weight: bold;
+    font-size: 0.9rem;
+    background-color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+    transition: var(--transition);
+    margin: 0 6px;
+    text-align: center;
+}
+
+.a:hover {
+    background-color: #0f3459;
+    color: #ffffff;
+    border-color: #0f3459;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+header .a:first-of-type {
+    margin-left: auto;
+}
+
+header .a:last-of-type {
+    margin-right: auto;
 }
 
 .cadastro {
@@ -39,6 +106,34 @@ header {
     font-size: 14px;
 }
 
+#menu-usuario {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-login {
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    color: white;
+    font-weight: bold;
+    margin-left: 10px;
+    background-color: var(--orange-electric);
+    padding: 8px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-login:hover {
+    background-color: var(--orange-dark);
+}
+
+/* ==========================================================================
+   CONTEÚDO DO RELATÓRIO
+   ========================================================================== */
 .container {
     display: flex;
     justify-content: center;
@@ -59,34 +154,29 @@ header {
     justify-content: space-between;
     padding: 10px 20px;
     font-weight: bold;
-    
 }
 
 .tabela {
     width: 100%;
     border-collapse: collapse;
-    
 }
 
- .tabela td{
+.tabela td {
     border: 1px solid rgb(209, 118, 0);
-    padding: 1px;
-    text-align: left;
     padding: 2px 12px;
-    
+    text-align: left;
 }
 
 .tabela th {
-    background-color:rgb(209, 118, 0);
-     border: 1px solid rgb(209, 118, 0);
+    background-color: rgb(209, 118, 0);
+    border: 1px solid rgb(209, 118, 0);
     color: white;
-    padding: 5px 0 rgb(209, 118, 0);
+    padding: 5px 0;
     text-align: center;
-
 }
 
 .tabela tr:hover {
-    background-color:white ;
+    background-color: white;
 }
 
 .descricao {
@@ -99,7 +189,7 @@ header {
 }
 
 .linhas {
-    border-bottom: 2px solid rgb(241, 136, 0) ;
+    border-bottom: 2px solid rgb(241, 136, 0);
     margin: 25px 0;
 }
 
@@ -113,14 +203,9 @@ footer {
     bottom: 0;
 }
 
-@media print {
-    body { background-color: white; }
-    header, footer, .filtros { display: none; }
-    .container { padding: 0; }
-    .card { width: 100%; border: none; box-shadow: none; }
-    .card-header { background-color: rgb(241, 136, 0) !important; }
-}
-
+/* ==========================================================================
+   MODAL
+   ========================================================================== */
 dialog.modal {
     border: none;
     border-radius: 8px;
@@ -156,7 +241,7 @@ dialog.modal::backdrop {
     margin-bottom: 5px;
     font-weight: bold;
     font-size: 0.9rem;
-    color: white ;
+    color: white;
 }
 
 .form-group input {
@@ -205,4 +290,32 @@ dialog.modal::backdrop {
 
 .btn-salvar:hover {
     background-color: rgb(186, 117, 28);
+}
+
+/* ==========================================================================
+   IMPRESSÃO & RESPONSIVIDADE
+   ========================================================================== */
+@media print {
+    body { background-color: white; }
+    header, footer, .filtros { display: none; }
+    .container { padding: 0; }
+    .card { width: 100%; border: none; box-shadow: none; }
+    .card-header { background-color: rgb(241, 136, 0) !important; }
+}
+
+@media (max-width: 992px) {
+    header {
+        flex-direction: column;
+        padding: 15px;
+        height: auto;
+        gap: 15px;
+    }
+
+    header .a:first-of-type {
+        margin-left: 0;
+    }
+
+    header .a:last-of-type {
+        margin-right: 0;
+    }
 }

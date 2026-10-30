@@ -1,151 +1,237 @@
- * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            
-        }
+/* ==========================================================================
+   Variáveis do Sistema
+   ========================================================================== */
+:root {
+    --bg-main: #113255;
+    --bg-header: #ECF2F2;
+    --bg-footer: #383838;
+    
+    --orange-electric: #F18800;
+    --orange-dark: #D17600;
+    --orange-glow: rgba(241, 136, 0, 0.4);
+    
+    --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-primary);
+}
 
-        /* --- Cabeçalho --- */
-        .top-header {
-            background: #ECF2F2;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            padding: 5px 20px;  
-            height: 60px; 
-        }
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg-main);
+}
 
+/* ==========================================================================
+   HEADER TECNOLÓGICO (Igual ao Index)
+   ========================================================================== */
+header, .top-header {
+    background: var(--bg-header);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;  
+    height: 65px;        
+    border-bottom: 3px solid var(--orange-electric);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+}
 
-       .logo {
-            height: 45px;
-            width: 45px;
-            margin-right: 10px;
-            cursor: pointer;
-        }
+.btnVoltar {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
 
-        .titulo {
-            font-family: Arial, sans-serif;
-            font-size: 1.2rem;
-            line-height: 1;
-            flex-grow: 1;
-            margin: 0;
-            margin-right: 10px;
-            cursor: pointer;
-        }
+.logo {
+    height: 40px;
+    width: 40px;
+    margin-right: 15px;
+    cursor: pointer;
+    transition: var(--transition);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
 
-        .sub {
-            font-weight: 500;
-            font-size: 0.8rem;
-            margin: 0;    
-        }   
+.logo:hover {
+    transform: scale(1.08) rotate(-3deg);
+}
 
-        /* --- Conteúdo Principal --- */
-        .main-content {
-            background-color: #113255;
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 60px 20px;
-        }
+.titulo {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f3459;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin: 0;
+    margin-right: 10px;
+    cursor: pointer;
+    line-height: 1;
+}
 
-        /* --- Tabela --- */
-        .tabela-container {
-            width: 100%;
-            max-width: 900px;
-            background-color: #edf2f6;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
+.sub {
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--orange-dark);
+    letter-spacing: 1px;
+    margin-top: 2px;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+/* CARDS DOS LINKS DA CLASSE .a (CENTRALIZADOS) */
+.a {
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    color: #0f3459;
+    font-weight: bold;
+    font-size: 0.9rem;
+    background-color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+    transition: var(--transition);
+    margin: 0 6px;
+    text-align: center;
+}
 
-        .header-principal {
-            background-color: #ff8c00;
-        }
+.a:hover {
+    background-color: #0f3459;
+    color: #ffffff;
+    border-color: #0f3459;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
 
-        .header-principal th {
-            color: #ffffff;
-            font-size: 28px;
-            font-weight: 800;
-            text-align: left;
-            padding: 12px 20px;
-        }
+header .a:first-of-type, .top-header .a:first-of-type {
+    margin-left: auto;
+}
 
-        .header-colunas {
-            background-color: #d17a14;
-        }
+header .a:last-of-type, .top-header .a:last-of-type {
+    margin-right: auto;
+}
 
-        .header-colunas th {
-            color: #ffffff;
-            font-size: 13px;
-            padding: 6px 20px;
-            text-align: left;
-            font-weight: bold;
-        }
+#menu-usuario {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
 
-        .header-colunas .col-status {
-            font-style: italic;
-        }
+/* BOTÕES DE LOGIN / CADASTRO */
+.btn-login {
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    color: white;
+    font-weight: bold;
+    margin-left: 10px;
+    background-color: var(--orange-electric);
+    padding: 8px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    display: inline-block;
+    text-align: center;
+}
 
-        tbody tr:hover {
-            background-color: #e2e8ed;
-        }
+.btn-login:hover {
+    background-color: var(--orange-dark);
+}
 
-        tbody td {
-            padding: 20px 20px;
-            color: #000000;
-            font-size: 13px;
-            font-weight: bold;
-        }
+/* ==========================================================================
+   CONTEÚDO PRINCIPAL
+   ========================================================================== */
+.main-content {
+    background-color: var(--bg-main);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
 
-        .linha-divisoria {
-            border-left: 2px solid #df8615;
-        }
+/* ==========================================================================
+   TABELA DE FUNCIONÁRIOS
+   ========================================================================== */
+.tabela-container {
+    width: 100%;
+    max-width: 900px;
+    background-color: #edf2f6;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
 
-        .col-cpf-conteudo, .header-colunas .col-cpf {
-            text-align: center;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-        .acoes {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            font-size: 18px;
-        }
+.header-principal {
+    background-color: #ff8c00;
+}
 
-        .acoes i {
-            cursor: pointer;
-            color: #000000;
-        }
+.header-principal th {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 800;
+    text-align: left;
+    padding: 12px 20px;
+}
 
-        /* --- Rodapé --- */
-        .main-footer {
-            background-color: #383838;
-            color: #e0e0e0;
-            text-align: center;
-            padding: 25px 20px;
-            
-        }
+.header-colunas {
+    background-color: #d17a14;
+}
 
-        /* --- Modal de Edição --- */
+.header-colunas th {
+    color: #ffffff;
+    font-size: 13px;
+    padding: 6px 20px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.header-colunas .col-status {
+    font-style: italic;
+}
+
+tbody tr:hover {
+    background-color: #e2e8ed;
+}
+
+tbody td {
+    padding: 20px 20px;
+    color: #000000;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.linha-divisoria {
+    border-left: 2px solid #df8615;
+}
+
+.col-cpf-conteudo, .header-colunas .col-cpf {
+    text-align: center;
+}
+
 /* --- Botões de Ação na Tabela --- */
 .acoes {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 8px;
+    font-size: 18px;
+}
+
+.acoes i {
+    cursor: pointer;
+    color: #000000;
 }
 
 .btn-acao {
@@ -182,7 +268,9 @@
     transform: translateY(-1px);
 }
 
-/* --- Estilos do Modal --- */
+/* ==========================================================================
+   MODAL DE EDIÇÃO
+   ========================================================================== */
 .modal {
     display: none; 
     position: fixed;
@@ -279,4 +367,34 @@
 
 .btn-cancelar:hover {
     background-color: #5a6268;
+}
+
+/* ==========================================================================
+   RODAPÉ
+   ========================================================================== */
+.main-footer {
+    background-color: var(--bg-footer);
+    color: #e0e0e0;
+    text-align: center;
+    padding: 25px 20px;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE
+   ========================================================================== */
+@media (max-width: 992px) {
+    header, .top-header {
+        flex-direction: column;
+        padding: 15px;
+        height: auto;
+        gap: 15px;
+    }
+
+    header .a:first-of-type, .top-header .a:first-of-type {
+        margin-left: 0;
+    }
+
+    header .a:last-of-type, .top-header .a:last-of-type {
+        margin-right: 0;
+    }
 }
