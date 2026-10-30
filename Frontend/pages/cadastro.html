@@ -28,7 +28,11 @@
             <input type="text" id="cpf" class="cadastro-input" placeholder="CPF:" required>
             <input type="email" id="email" class="cadastro-input" placeholder="EMAIL:" required>
             <input type="password" id="senha" class="cadastro-input" placeholder="SENHA:" required>
-            <input type="text" id="cargo" class="cadastro-input" placeholder="CARGO:" required>
+            <select id="cargo" class="cadastro-input" required>
+    <option value="" disabled selected hidden>CARGO:</option>
+    <option value="funcionario">Funcionário</option>
+    <option value="gerente">Gerente</option>
+</select>
             
             <a href="../index.html">
             <button type="submit" class="btn-entrar" id="btn-entrar">ENTRAR</button>
