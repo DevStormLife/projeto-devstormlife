@@ -4,10 +4,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+
+@EnableMethodSecurity
+@EnableWebSecurity
 @Configuration
 public class SecurityConfig {
     
@@ -29,20 +34,23 @@ public class SecurityConfig {
             // 3. Libera as rotas públicas (Login, Cadastros, etc.)
             .authorizeHttpRequests(auth -> auth
                 // Libera requisições de checagem CORS
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                
-                // Libera rotas de Usuários (com e sem /api)
-                .requestMatchers("/api/usuarios/**", "/usuarios/**").permitAll()
-                
-                // Libera rotas de Funcionários (incluindo /funcionarios/cadastro)
-                .requestMatchers("/api/funcionarios/**", "/funcionarios/**").permitAll()
-                
-                // Libera rotas de Subestações
-                .requestMatchers("/api/subestacoes/**", "/subestacoes/**").permitAll()
-                
-                .anyRequest().authenticated()
-            );
-        
+            		.requestMatchers("/api/auth/**").permitAll()
+                    
+                    // 1. Permissões de Cadastro (Disponível para TODOS os cargos autenticados: BASICO, SUPERVISOR, CHEFE)
+                    .requestMatchers(HttpMethod.OPTIONS, "/api/usuarios/**", "/api/funcionarios/**", "/api/cartoes/**").hasAnyRole("BASICO", "SUPERVISOR", "CHEFE")
+                    
+                    // 2. Relatórios de Subestação (Disponível para SUPERVISOR e CHEFE)
+                    .requestMatchers("/api/subestacoes/relatorios/**").hasAnyRole("SUPERVISOR", "CHEFE")
+                    
+                    // 3. Acesso total / Páginas administrativas (Disponível apenas para CHEFE)
+                    .requestMatchers("/api/subestacoes/**").hasRole("CHEFE")
+                    .requestMatchers("/api/admin/**").hasRole("CHEFE")
+                    
+                    // Qualquer outra requisição precisa estar autenticada
+                    .anyRequest().authenticated()
+                )
+                .httpBasic(httpBasic -> {}); // ou configuração de JWT / FormLogin
+ 
         return http.build();
     }
 }
