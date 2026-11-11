@@ -13,7 +13,7 @@ formLogin.addEventListener("submit", async function(event){
 
     try {
         // Dispara um POST enviando o login e senha no "corpo" (body) da requisição
-        const resposta = await fetch("http://localhost:8080/api/usuarios/login", {
+        const resposta = await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" }, // Avisa que estamos a enviar um JSON
             body: JSON.stringify({
@@ -24,15 +24,21 @@ formLogin.addEventListener("submit", async function(event){
 
         // Se a API retornar um status de sucesso (200 OK)
         if (resposta.ok) {
-            const dadosUsuario = await resposta.json();
+            // Tenta ler os dados, mas protege o código caso o backend não devolva um JSON
+            let dadosUsuario = {};
+            try {
+                dadosUsuario = await resposta.json();
+            } catch (e) {
+                console.log("Login realizado com sucesso, mas o servidor não retornou JSON.");
+            }
 
-            // Grava os dados do usuário na memória do navegador (localStorage)
+            // Grava os dados do utilizador na memória do navegador (localStorage)
             localStorage.setItem("usuarioSessao", JSON.stringify(dadosUsuario));
 
-            // Redireciona o utilizador para a tela de administração
-            window.location.href = "admin.html";
+            // Redireciona o utilizador para a página principal
+            window.location.href = "/pages/homePage.html";
         } else {
-            mensagemErro.innerText = "Usuário ou senha inválidos!";
+            mensagemErro.innerText = "Utilizador ou senha inválidos!";
         }
     } catch (erro) {
         console.error(erro);
