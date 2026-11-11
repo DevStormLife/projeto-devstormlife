@@ -3,45 +3,40 @@ const API_URL = "http://localhost:8080/usuarios/login";
 const formLogin = document.getElementById("form-login");
 const mensagemErro = document.getElementById("mensagem-erro");
 
-formLogin.addEventListener("submit", async function(event){
-    // Evita que o navegador recarregue a página ao clicar no botão "Entrar"
+formLogin.addEventListener("submit", async function(event) {
     event.preventDefault();
 
-    // Captura os valores digitados nos inputs
     const loginInput = document.getElementById("login").value;
     const senhaInput = document.getElementById("senha").value;
 
     try {
-        // Dispara um POST enviando o login e senha no "corpo" (body) da requisição
         const resposta = await fetch(API_URL, {
             method: "POST",
-            headers: { "Content-Type": "application/json" }, // Avisa que estamos a enviar um JSON
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 login: loginInput,
                 senha: senhaInput
             })
         });
 
-        // Se a API retornar um status de sucesso (200 OK)
         if (resposta.ok) {
-            // Tenta ler os dados, mas protege o código caso o backend não devolva um JSON
             let dadosUsuario = {};
-            try {
+            
+            const contentType = resposta.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
                 dadosUsuario = await resposta.json();
-            } catch (e) {
-                console.log("Login realizado com sucesso, mas o servidor não retornou JSON.");
             }
 
-            // Grava os dados do utilizador na memória do navegador (localStorage)
+            // Grava os dados da sessão
             localStorage.setItem("usuarioSessao", JSON.stringify(dadosUsuario));
 
-            // Redireciona o utilizador para a página principal
-            window.location.href = "/pages/homePage.html";
+            // REDIRECIONAMENTO CORRETO:
+            window.location.href = "pages/homePage.html";
         } else {
             mensagemErro.innerText = "Utilizador ou senha inválidos!";
         }
     } catch (erro) {
-        console.error(erro);
+        console.error("Erro no login:", erro);
         mensagemErro.innerText = "Erro ao conectar com o servidor.";
     }
 });
