@@ -15,7 +15,7 @@ import com.devstormlife.api.services.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class UsuarioController {
 
     @Autowired

@@ -5,12 +5,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
-    
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -20,29 +21,29 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         
         http
-            // 1. Ativa o CORS integrado para conversar com a sua classe CorsConfig
-            .cors(Customizer.withDefaults()) 
+            // 1. Ativa o suporte ao CORS configurado na sua aplicação
+            .cors(Customizer.withDefaults())
             
-            // 2. Desabilita o CSRF (essencial para requisições POST via API REST)
+            // 2. Desabilita o CSRF (necessário para APIs REST com POST/PUT)
             .csrf(csrf -> csrf.disable())
+
+            // 3. Define a gestão de sessão como STATELESS (API REST não guarda estado nem grava cookies de sessão)
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             
-            // 3. Libera as rotas públicas (Login, Cadastros, etc.)
+            // 4. Configuração das permissões de rotas
             .authorizeHttpRequests(auth -> auth
-                // Libera requisições de checagem CORS
+                // Libera requisições PREFLIGHT do CORS (OPTIONS)
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 
-                // Libera rotas de Usuários (com e sem /api)
-                .requestMatchers("/api/usuarios/**", "/usuarios/**").permitAll()
+                // Libera todas as rotas públicas da aplicação
+                .requestMatchers("/usuarios/**", "/api/usuarios/**").permitAll()
+                .requestMatchers("/funcionarios/**", "/api/funcionarios/**").permitAll()
+                .requestMatchers("/subestacoes/**", "/api/subestacoes/**").permitAll()
                 
-                // Libera rotas de Funcionários (incluindo /funcionarios/cadastro)
-                .requestMatchers("/api/funcionarios/**", "/funcionarios/**").permitAll()
-                
-                // Libera rotas de Subestações
-                .requestMatchers("/api/subestacoes/**", "/subestacoes/**").permitAll()
-                
+                // Exige autenticação para qualquer outra rota não listada acima
                 .anyRequest().authenticated()
             );
-        
+
         return http.build();
     }
 }
