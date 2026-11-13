@@ -38,7 +38,7 @@ public class FuncionarioController {
 	public ResponseEntity<Funcionario> buscar(@PathVariable Long id) {
 		Optional<Funcionario> funcionario = service.buscarPorId(id);
 		
-		if(funcionario != null) {
+		if(funcionario.isPresent()) {
 			return ResponseEntity.ok(funcionario.get());
 		}
 		

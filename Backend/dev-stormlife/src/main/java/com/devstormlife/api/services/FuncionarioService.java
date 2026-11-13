@@ -11,6 +11,7 @@ import com.devstormlife.api.enums.Cargo;
 import com.devstormlife.api.entities.Funcionario;
 import com.devstormlife.api.entities.Usuario;
 import com.devstormlife.api.repositories.FuncionarioRepository;
+import com.devstormlife.api.repositories.UsuarioRepository;
 
 	@Service
 	public class FuncionarioService {
@@ -20,6 +21,9 @@ import com.devstormlife.api.repositories.FuncionarioRepository;
 	    
 	    @Autowired
 	    private UsuarioService usuarioService;
+
+	    @Autowired
+	    private UsuarioRepository usuarioRepository;
 	    
 	    @Autowired
 	    private PasswordEncoder passwordEncoder; // Injeta o BCryptPasswordEncoder configurado na SecurityConfig
@@ -47,22 +51,32 @@ import com.devstormlife.api.repositories.FuncionarioRepository;
 	        return repository.save(funcionario);
 	    }
 	    
+	    @Transactional
 	    public Funcionario atualizar(Long id, Funcionario funcionarioAlterado) {
 	        Optional<Funcionario> funcionarioExistente = buscarPorId(id);
 
 	        if (funcionarioExistente.isPresent()) {
 	            Funcionario atualizado = funcionarioExistente.get();
+	            Usuario login = usuarioRepository.findByEmail(atualizado.getEmail()).orElse(null);
 
 	            // Atualiza os dados básicos do formulário
 	            atualizado.setNome(funcionarioAlterado.getNome());
 	            atualizado.setEmail(funcionarioAlterado.getEmail());
 	            atualizado.setCpf(funcionarioAlterado.getCpf());
 	            atualizado.setCargo(funcionarioAlterado.getCargo());
+	            if (login != null) {
+	                login.setEmail(funcionarioAlterado.getEmail());
+	                usuarioRepository.save(login);
+	            }
 	            
 	            // Se a senha foi preenchida no request, codifica com BCrypt.
 	            // Se veio vazia ou nula (como no Modal de edição), MANTÉM a senha criptografada antiga!
 	            if (funcionarioAlterado.getSenha() != null && !funcionarioAlterado.getSenha().trim().isEmpty()) {
 	                atualizado.setSenha(passwordEncoder.encode(funcionarioAlterado.getSenha()));
+	                if (login != null) {
+	                    login.setSenha(passwordEncoder.encode(funcionarioAlterado.getSenha()));
+	                    usuarioRepository.save(login);
+	                }
 	            }
 
 	            // Se veio subestação, atualiza; caso contrário mantém a atual
@@ -77,8 +91,12 @@ import com.devstormlife.api.repositories.FuncionarioRepository;
 	    }
 
 	 
+	    @Transactional
 	    public void deletar(Long id) {
-	        repository.deleteById(id);
+	        repository.findById(id).ifPresent(funcionario -> {
+	            repository.delete(funcionario);
+	            usuarioRepository.findByEmail(funcionario.getEmail()).ifPresent(usuarioRepository::delete);
+	        });
 	    }
 	}
 

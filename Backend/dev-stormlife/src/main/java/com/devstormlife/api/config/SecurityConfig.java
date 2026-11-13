@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import jakarta.servlet.DispatcherType;
 
 @Configuration
 public class SecurityConfig {
@@ -33,6 +34,8 @@ public class SecurityConfig {
             .formLogin(form -> form.disable())
             .addFilterBefore(sessions, UsernamePasswordAuthenticationFilter.class)
             .authorizeHttpRequests(auth -> auth
+                .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
+                .requestMatchers("/error").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/usuarios/login", "/funcionarios/cadastro").permitAll()
                 .requestMatchers(HttpMethod.POST, "/usuarios/cadastro").hasRole("CHEFE")

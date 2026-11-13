@@ -35,7 +35,8 @@ public class SubestacaoService {
 			Subestacao atualizado = subestacaoExistente.get();
 			
 			atualizado.setNome(subestacaoAlterada.getNome());
-			atualizado.setFuncionarios(subestacaoAlterada.getFuncionarios());
+			atualizado.setCodigoSubestacao(subestacaoAlterada.getCodigoSubestacao());
+			atualizado.setLocalizacao(subestacaoAlterada.getLocalizacao());
 			
 			return repository.save(atualizado);
 		}

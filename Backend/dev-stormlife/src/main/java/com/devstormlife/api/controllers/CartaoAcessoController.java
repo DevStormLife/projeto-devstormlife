@@ -36,7 +36,7 @@ public class CartaoAcessoController {
 	public ResponseEntity<CartaoAcesso> buscar(@PathVariable Long id) {
 		Optional<CartaoAcesso> cartaoAcesso = service.buscarPorId(id);
 		
-		if (cartaoAcesso != null) {
+		if (cartaoAcesso.isPresent()) {
 			return ResponseEntity.ok(cartaoAcesso.get());
 		}
 		

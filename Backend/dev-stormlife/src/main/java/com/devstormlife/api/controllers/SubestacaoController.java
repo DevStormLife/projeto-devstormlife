@@ -35,7 +35,7 @@ public class SubestacaoController {
 	public ResponseEntity<Subestacao> buscar(@PathVariable Long id) {
 		Optional<Subestacao> subestacao = service.buscarPorId(id);
 		
-		if (subestacao != null) {
+		if (subestacao.isPresent()) {
 			return ResponseEntity.ok(subestacao.get());
 		}
 		
