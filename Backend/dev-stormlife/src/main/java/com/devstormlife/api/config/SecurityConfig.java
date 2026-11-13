@@ -37,7 +37,7 @@ public class SecurityConfig {
             		.requestMatchers("/api/auth/**").permitAll()
                     
                     // 1. Permissões de Cadastro (Disponível para TODOS os cargos autenticados: BASICO, SUPERVISOR, CHEFE)
-                    .requestMatchers(HttpMethod.OPTIONS, "/api/usuarios/**", "/api/funcionarios/**", "/api/cartoes/**").hasAnyRole("BASICO", "SUPERVISOR", "CHEFE")
+                    .requestMatchers(HttpMethod.OPTIONS, "/api/usuarios/**", "/api/funcionarios/**", "/api/cartoes/**").hasAnyRole("ELETROTECNICO", "ENGENHEIRO", "OPERADOR", "SUPERVISOR", "CHEFE")
                     
                     // 2. Relatórios de Subestação (Disponível para SUPERVISOR e CHEFE)
                     .requestMatchers("/api/subestacoes/relatorios/**").hasAnyRole("SUPERVISOR", "CHEFE")
