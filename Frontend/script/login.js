@@ -12,12 +12,12 @@ formLogin.addEventListener("submit", async function(event){
     const senhaInput = document.getElementById("senha").value;
 
     try {
-        // Dispara um POST enviando o login e senha no "corpo" (body) da requisição
+        // Dispara um POST enviando o email e senha no "corpo" (body) da requisição
         const resposta = await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" }, // Avisa que estamos a enviar um JSON
             body: JSON.stringify({
-                login: loginInput,
+                email: loginInput, // CORREÇÃO: Alterado de 'login' para 'email'
                 senha: senhaInput
             })
         });

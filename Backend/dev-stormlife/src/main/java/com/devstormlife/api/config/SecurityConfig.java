@@ -25,7 +25,6 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         
         http
-            // 1. Ativa o CORS integrado para conversar com a sua classe CorsConfig
             .cors(Customizer.withDefaults()) 
             
             // 2. Desabilita o CSRF (essencial para requisições POST via API REST)
@@ -33,6 +32,7 @@ public class SecurityConfig {
             
             // 3. Libera as rotas públicas (Login, Cadastros, etc.)
             .authorizeHttpRequests(auth -> auth
+<<<<<<< Updated upstream
                 // Libera requisições de checagem CORS
             		.requestMatchers("/api/auth/**").permitAll()
                     
@@ -51,6 +51,15 @@ public class SecurityConfig {
                 )
                 .httpBasic(httpBasic -> {}); // ou configuração de JWT / FormLogin
  
+=======
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers("/api/usuarios/**", "/usuarios/**").permitAll()
+                .requestMatchers("/api/funcionarios/**", "/funcionarios/**").permitAll()
+                .requestMatchers("/api/subestacoes/**", "/subestacoes/**").permitAll()
+                .anyRequest().authenticated()
+            );
+        
+>>>>>>> Stashed changes
         return http.build();
     }
 }
