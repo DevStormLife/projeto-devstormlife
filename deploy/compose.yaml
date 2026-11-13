@@ -1,3 +1,4 @@
+name: stormlife
 services:
   stormlife-api:
     build: ../Backend/dev-stormlife
