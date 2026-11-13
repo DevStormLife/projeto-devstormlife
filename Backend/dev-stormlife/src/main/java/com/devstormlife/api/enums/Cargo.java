@@ -1,20 +1,20 @@
 package com.devstormlife.api.enums;
 
 public enum Cargo {
-	OPERADOR("Operador"),
-	ENGENHEIRO("Engenheiro"),
-	ELETROTECNICO("Eletrotecnico"),
-	SUPERVISOR("Supervisor"),
-	CHEFE("Chefe");
+	OPERADOR("ROLE_OPERADOR"),
+	ENGENHEIRO("ROLE_ENGENHEIRO"),
+	ELETROTECNICO("ROLE_ELETROTECNICO"),
+	SUPERVISOR("ROLE_SUPERVISOR"),
+	CHEFE("ROLE_CHEFE");
 	
-	private final String descricao;
+	private final String role;
 	
-	Cargo(String descricao) {
-		this.descricao = descricao;
+	Cargo(String role) {
+		this.role = role;
 	}
 	
-	public String getDescricao() {
-		return descricao;
+	public String getRole() {
+		return role;
 	}
 	
 }
