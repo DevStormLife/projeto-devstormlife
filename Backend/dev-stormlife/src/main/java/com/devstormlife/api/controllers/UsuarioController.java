@@ -3,7 +3,8 @@ package com.devstormlife.api.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,6 @@ import com.devstormlife.api.services.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin("*")
 public class UsuarioController {
 
     @Autowired
@@ -30,16 +30,15 @@ public class UsuarioController {
     }
     
     @PostMapping("/login")
-    public ResponseEntity<Usuario> login(@RequestBody Usuario usuarioLogin){
+    public ResponseEntity<Usuario> login(@RequestBody Usuario usuarioLogin, HttpServletRequest request){
         
         Usuario usuario = service.login(usuarioLogin.getEmail(), usuarioLogin.getSenha());
         
-        // CORREÇÃO: Se o usuário não for encontrado ou senha for inválida, retorna erro 401
-        if (usuario == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        
-        // Se as credenciais estiverem corretas, retorna 200 OK e o usuário
+        HttpSession old = request.getSession(false);
+        if (old != null) old.invalidate();
+        HttpSession session = request.getSession(true);
+        session.setAttribute("stormUserId", usuario.getId());
+        session.setAttribute("stormUserRole", usuario.getTipo());
         return ResponseEntity.ok(usuario);
     }
     

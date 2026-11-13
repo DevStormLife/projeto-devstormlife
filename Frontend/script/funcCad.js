@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/funcionarios";
+const API_URL = window.STORMLIFE_API_ORIGIN + "/funcionarios";
 
 document.addEventListener('DOMContentLoaded', () => {
     const tabela = document.querySelector('tbody');
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 1. CARREGAR FUNCIONÁRIOS ---
     const carregarFuncionarios = async () => {
         try {
-            const resposta = await fetch(API_URL);
+            const resposta = await window.stormFetch(API_URL);
             if (!resposta.ok) throw new Error("Erro ao listar funcionários");
             
             const funcionarios = await resposta.json();
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (btnExcluir) {
             if (confirm(`Deseja realmente excluir o funcionário ${nome}?`)) {
                 try {
-                    const resposta = await fetch(`${API_URL}/${idFuncionario}`, {
+                    const resposta = await window.stormFetch(`${API_URL}/${idFuncionario}`, {
                         method: 'DELETE'
                     });
 
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let funcionario = listaFuncionariosCache.find(f => f.id == idFuncionario);
 
                 if (!funcionario) {
-                    const resposta = await fetch(`${API_URL}/${idFuncionario}`);
+                    const resposta = await window.stormFetch(`${API_URL}/${idFuncionario}`);
                     if (resposta.ok) {
                         funcionario = await resposta.json();
                     }
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const resposta = await fetch(`${API_URL}/${id}`, {
+            const resposta = await window.stormFetch(`${API_URL}/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

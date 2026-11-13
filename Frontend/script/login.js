@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/usuarios/login";
+const API_URL = window.STORMLIFE_API_ORIGIN + "/usuarios/login";
 
 const formLogin = document.getElementById("form-login");
 const mensagemErro = document.getElementById("mensagem-erro");
@@ -13,7 +13,7 @@ formLogin.addEventListener("submit", async function(event){
 
     try {
         // Dispara um POST enviando o email e senha no "corpo" (body) da requisição
-        const resposta = await fetch(API_URL, {
+        const resposta = await window.stormFetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" }, // Avisa que estamos a enviar um JSON
             body: JSON.stringify({

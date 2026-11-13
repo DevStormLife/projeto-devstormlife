@@ -1,9 +1,9 @@
-const BASE_URL = 'http://localhost:8080/subestacoes';
+const BASE_URL = window.STORMLIFE_API_ORIGIN + '/subestacoes';
 
 const SubestacaoService = {
     async listarTodas() {
         // CORREÇÃO: Removido o '/subestacoes' extra do final
-        const response = await fetch(BASE_URL); 
+        const response = await window.stormFetch(BASE_URL); 
         if (!response.ok) throw new Error('Erro ao buscar subestações.');
         return await response.json();
     }
@@ -18,7 +18,7 @@ const FuncionarioService = {
 
         // Se a rota do backend for http://localhost:8080/funcionarios, você deve ajustar aqui.
         // Se for http://localhost:8080/subestacoes/funcionarios, então está correto.
-        const response = await fetch(`${BASE_URL}/funcionarios`, {
+        const response = await window.stormFetch(window.STORMLIFE_API_ORIGIN + "/funcionarios/cadastro", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)

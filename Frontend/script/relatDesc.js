@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/usuarios/cadastro";
+const API_URL = window.STORMLIFE_API_ORIGIN + "/usuarios/cadastro";
 
 let registrosAcesso = [];
 

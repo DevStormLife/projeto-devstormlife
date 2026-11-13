@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/funcionarios/cadastro";
+const API_URL = window.STORMLIFE_API_ORIGIN + "/funcionarios/cadastro";
 
 document.addEventListener('DOMContentLoaded', () => {
     const cadastroForm = document.querySelector('#cadastro-form');
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         
         try {
-            const resposta = await fetch(API_URL, {
+            const resposta = await window.stormFetch(API_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(funcionario)

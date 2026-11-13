@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.devstormlife.api.enums.Cargo;
 
 import com.devstormlife.api.entities.Funcionario;
 import com.devstormlife.api.entities.Usuario;
@@ -30,15 +32,18 @@ import com.devstormlife.api.repositories.FuncionarioRepository;
 	        return repository.findById(id);
 	    }
 
+	    @Transactional
 	    public Funcionario salvar(Funcionario funcionario) {
 	    	
 	    	Usuario usuario = new Usuario();
 	    	usuario.setEmail(funcionario.getEmail());
 	    	usuario.setSenha(funcionario.getSenha());
-	    	usuario.setTipo("Funcionário");
+	    	usuario.setTipo("OPERADOR");
 	    	
 	    	usuarioService.salvar(usuario);
-	    	
+	    	funcionario.setId(null);
+	    	funcionario.setCargo(Cargo.OPERADOR);
+	    	funcionario.setSenha(passwordEncoder.encode(funcionario.getSenha()));
 	        return repository.save(funcionario);
 	    }
 	    
