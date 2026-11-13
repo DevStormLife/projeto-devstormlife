@@ -1,0 +1,10 @@
+services:
+  stormlife-api:
+    build: ../Backend/dev-stormlife
+    container_name: stormlife-api
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:8089:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
